@@ -1,2 +1,30 @@
-# CodeforcesEduHacking
-CodeforcesEduHacking
+# Codeforces Edu Hacking
+## **简介**
+
+Codeforces Edu 场错误代码查找器。
+
+可在每次 Edu 结束后 24 小时内食用。
+
+
+
+## **暂定需求**
+
+- [ ] 可指定 contest id
+- [ ] 可指定所查询的题目（A、B、C、D、E、F?）
+- [ ] 可指定若干组输入数据以及正确的输出结果
+- [ ] 可指定并行化查询的数目
+- [ ] 可选择本地支持的编译环境
+
+
+
+## **需要做什么**
+
+- 本地 `GCC/G++` 环境变量
+- 本地 `Java 8` 环境变量
+- 本地 `Python 2/3` 环境变量
+
+
+
+## **然后呢？**
+
+静静的看着吧！
