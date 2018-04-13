@@ -43,7 +43,6 @@ namespace TestConsole
 
                 var aa = Process.Start("notepad.exe");
                 //aa.Close();
-                aa.Kill();
                 aa.WaitForExit();
                 Console.WriteLine("The End!");
             }
