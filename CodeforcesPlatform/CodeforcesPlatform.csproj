@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CodeforcesAPI.cs" />
+    <Compile Include="CompilingEnvironment.cs" />
     <Compile Include="HttpClientSingleton.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

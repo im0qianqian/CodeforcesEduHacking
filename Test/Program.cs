@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -13,42 +14,23 @@ namespace TestConsole
     {
         static void Main(string[] args)
         {
-            Process process = new Process();
             try
             {
-                process.StartInfo.UseShellExecute = false;   // Shell的使用 
-                process.StartInfo.CreateNoWindow = true;   //是否在新窗口中启动该进程的值
-                //process.StartInfo.RedirectStandardInput = true;  // 重定向输入流   
-                //process.StartInfo.RedirectStandardOutput = true;  //重定向输出流   
-                //process.StartInfo.RedirectStandardError = true;  //重定向错误流 
+                StreamReader sr = new StreamReader("main.cpp");
+                string code = sr.ReadToEnd();
 
-                //process.StartInfo.FileName = "g++.exe";
-                //process.StartInfo.Arguments = "test.cpp -pipe -o test.exe";
-                //process.Start();
-                //string output = process.StandardOutput.ReadToEnd();
-                //string error = process.StandardError.ReadToEnd();
-                //Console.WriteLine(output);
-                //Console.WriteLine(error);
-                //process.Close();
+                var a = new CompilingEnvironment.GNUCompiler();
+                string end = a.Execute(code, "44");
+                Console.WriteLine(end);
+                Console.WriteLine(a.ExcuteTotalTime.TotalSeconds);
 
-                //process.StartInfo.FileName = "test.exe";
-                //process.Start();
-                //process.StandardInput.WriteLine("\n33\n1");
-                //var output = process.StandardOutput.ReadToEnd();
-                //var error = process.StandardError.ReadToEnd();
-                //Console.WriteLine(output);
-                //Console.WriteLine(error);
-                //Console.WriteLine(process.Id);
-                //Console.WriteLine((process.ExitTime - process.StartTime).TotalSeconds);
-
-                var aa = Process.Start("notepad.exe");
-                //aa.Close();
-                aa.WaitForExit();
-                Console.WriteLine("The End!");
+                end = a.Execute(code, "55");
+                Console.WriteLine(end);
+                Console.WriteLine(a.ExcuteTotalTime.TotalSeconds);
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                Console.WriteLine(e.Message);
+                Console.WriteLine(ex.Message);
             }
         }
     }
