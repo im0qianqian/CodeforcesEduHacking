@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using CodeforcesAPI;
+using CodeforcesPlatform;
 
 namespace CodeforcesEduHacking
 {
@@ -20,7 +20,7 @@ namespace CodeforcesEduHacking
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            label1.Text = Codeforces.Test();
+            label1.Text = CodeforcesAPI.Test();
         }
     }
 }

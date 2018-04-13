@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using CodeforcesAPI;
+using CodeforcesPlatform;
 
 namespace WpfTest
 {
@@ -28,7 +28,7 @@ namespace WpfTest
 
         private void Grid_Loaded(object sender, RoutedEventArgs e)
         {
-            this.label1.Content = Codeforces.Test();
+            this.label1.Content = CodeforcesAPI.Test();
         }
     }
 }

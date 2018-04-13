@@ -49,9 +49,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CodeforcesAPI\CodeforcesAPI.csproj">
-      <Project>{a3530b63-9c0f-41c1-95db-bd02b008aff9}</Project>
-      <Name>CodeforcesAPI</Name>
+    <ProjectReference Include="..\CodeforcesPlatform\CodeforcesPlatform.csproj">
+      <Project>{0efd3f10-4e1a-435b-8c91-36c869585497}</Project>
+      <Name>CodeforcesPlatform</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

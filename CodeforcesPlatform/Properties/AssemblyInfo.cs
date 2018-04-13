@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // 有关程序集的一般信息由以下
 // 控制。更改这些特性值可修改
 // 与程序集关联的信息。
-[assembly: AssemblyTitle("CodeforcesAPI")]
+[assembly: AssemblyTitle("CodeforcesPlatform")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("CodeforcesAPI")]
+[assembly: AssemblyProduct("CodeforcesPlatform")]
 [assembly: AssemblyCopyright("Copyright ©  2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // 如果此项目向 COM 公开，则下列 GUID 用于类型库的 ID
-[assembly: Guid("a3530b63-9c0f-41c1-95db-bd02b008aff9")]
+[assembly: Guid("0efd3f10-4e1a-435b-8c91-36c869585497")]
 
 // 程序集的版本信息由下列四个值组成: 
 //
