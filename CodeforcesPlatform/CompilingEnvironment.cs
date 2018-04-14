@@ -89,6 +89,7 @@ namespace CodeforcesPlatform
                 process.StartInfo.Arguments = string.Format("{0} -pipe -O2 -DONLINE_JUDGE -std=c++14 -o {0}.exe", filePath);
                 process.Start();
                 process.WaitForExit();
+                //process.Close();
             }
 
             public override string Execute(string sourceCodeText, string inputText)
@@ -104,10 +105,16 @@ namespace CodeforcesPlatform
 
                     process.StandardInput.Flush();
                     process.StandardInput.WriteLine(standardInputText);     // 写入输入数据
+                    process.StandardInput.Close();
 
                     standardOutputText = process.StandardOutput.ReadToEnd();
                     standardErrorText = process.StandardError.ReadToEnd();
+
+                    process.StandardOutput.Close();
+                    process.StandardError.Close();
+
                     process.WaitForExit();
+                    //process.Close();
 
                     excuteTotalTime = (process.ExitTime - process.StartTime);
 

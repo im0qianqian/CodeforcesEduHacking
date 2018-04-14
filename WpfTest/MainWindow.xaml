@@ -7,7 +7,8 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid Loaded="Grid_Loaded">
-        <Label x:Name="label1" Content="Label" HorizontalAlignment="Left" Margin="331,153,0,0" VerticalAlignment="Top" FontSize="48"/>
-
+        <ComboBox x:Name="comboBox1" HorizontalAlignment="Left" Margin="107,104,0,0" VerticalAlignment="Top" Width="555" SelectedIndex="0" FontSize="14"/>
+        <Button x:Name="button1" Content="Button" HorizontalAlignment="Left" Margin="324,242,0,0" VerticalAlignment="Top" Width="131" Height="46" Click="button1_Click"/>
+        <Label x:Name="label" Content="Label" HorizontalAlignment="Left" Height="32" Margin="107,49,0,0" VerticalAlignment="Top" Width="319"/>
     </Grid>
 </Window>

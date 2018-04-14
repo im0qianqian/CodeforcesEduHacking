@@ -16,17 +16,53 @@ namespace TestConsole
         {
             try
             {
-                var a = new Dictionary<string, string>();
-                a.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36");
-                string url = "http://christmas.dreamwings.cn/";
-                string data = HttpClientSingleton.DoGet(url, null,a);
-                Console.WriteLine(data);
-                
+                CodeforcesAPI a = new CodeforcesAPI();
+                //var b = a.GetContestStandings(962, true, 1, 2, "im0qianqian", -1);
+                var b = a.GetContestList();
+                foreach (var item in b["result"])
+                {
+                    Console.WriteLine(item["id"] + " " + item["name"]);
+                }
+                //Console.WriteLine(b);
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }
+
+
+            //try
+            //{
+            //    CodeforcesAPI a = new CodeforcesAPI();
+            //    string language, code;
+            //    code = a.GetCodeBySubmissionId(962, 37240104, out language);
+            //    Console.WriteLine(language);
+            //    //Console.WriteLine(code);
+            //    var b = new CompilingEnvironment.GNUCompiler();
+            //    string end = b.Execute(code, "4\n-5 R\n0 P\n3 P\n7 B");
+            //    Console.WriteLine(end);
+            //    Console.WriteLine(b.ExcuteTotalTime.TotalSeconds);
+            //}
+            //catch (Exception ex)
+            //{
+            //    Console.WriteLine(ex.Message);
+            //}
+
+
+            //try
+            //{
+            //    var a = new Dictionary<string, string>();
+            //    a.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36");
+            //    HttpClientSingleton.SetRequestHeaders(a);
+            //    string url = "http://christmas.dreamwings.cn/";
+            //    string data = HttpClientSingleton.DoGet(url);
+            //    Console.WriteLine(data);
+
+            //}
+            //catch (Exception ex)
+            //{
+            //    Console.WriteLine(ex.Message);
+            //}
 
 
             //try

@@ -18,9 +18,28 @@ namespace CodeforcesPlatform
         static HttpClientSingleton()
         {
             var handler = new HttpClientHandler() { AutomaticDecompression = DecompressionMethods.GZip };
+            ServicePointManager.ServerCertificateValidationCallback = CheckValidationResult;
             httpClient = new HttpClient(handler);
+            SetRequestHeaders(new Dictionary<string, string>() {
+                { "User-Agent","Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36" }
+            });
         }
 
+        /// <summary>
+        /// 设置请求头
+        /// </summary>
+        /// <param name="headerDic"></param>
+        public static void SetRequestHeaders(IDictionary<string, string> headerDic)
+        {
+            if (headerDic != null)
+            {
+                httpClient.DefaultRequestHeaders.Clear();
+                foreach (var item in headerDic)
+                {
+                    httpClient.DefaultRequestHeaders.Add(item.Key, item.Value);
+                }
+            }
+        }
         /// <summary>
         /// HttpClient 实现 Get 请求
         /// </summary>
@@ -30,6 +49,7 @@ namespace CodeforcesPlatform
         {
             try
             {
+                Console.WriteLine(url);
                 return httpClient.GetStringAsync(url).Result;
             }
             catch (Exception ex)
@@ -46,7 +66,7 @@ namespace CodeforcesPlatform
         /// <returns></returns>
         public static string DoGet(string url, IDictionary<string, string> args)
         {
-            if (args != null)
+            if (args != null && args.Count > 0)
             {
                 string argStr = "?";
                 foreach (var item in args)
@@ -59,17 +79,9 @@ namespace CodeforcesPlatform
             return DoGet(url);
         }
 
-        public static string DoGet(string url, IDictionary<string, string> args, IDictionary<string, string> headerDic)
+        private static bool CheckValidationResult(object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors errors)
         {
-            if (headerDic != null)
-            {
-                httpClient.DefaultRequestHeaders.Clear();
-                foreach (var item in headerDic)
-                {
-                    httpClient.DefaultRequestHeaders.Add(item.Key, item.Value);
-                }
-            }
-            return DoGet(url, args);
+            return true; //总是接受  
         }
     }
 }
