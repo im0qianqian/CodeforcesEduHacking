@@ -1,0 +1,41 @@
+﻿<Window x:Class="CodeforcesEduHacking.SelectedWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CodeforcesEduHacking"
+        mc:Ignorable="d"
+        Title="SelectedWindow" Height="450" Width="800">
+    <Grid Loaded="Grid_Loaded">
+        <ListView x:Name="problemList" ItemsSource="{Binding}" Margin="101,82,101,95" HorizontalAlignment="Center" ScrollViewer.HorizontalScrollBarVisibility="Hidden" PreviewMouseDoubleClick="problemList_PreviewMouseDoubleClick">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="#" Width="30">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <CheckBox Tag="{Binding ProblemObject}" Name="Complete" IsThreeState="False" Click="Complete_Click"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="ID" Width="30"  DisplayMemberBinding="{Binding Id}"/>
+                    <GridViewColumn Header="Title" Width="220" DisplayMemberBinding="{Binding Title}"/>
+                    <GridViewColumn Header="InputData" Width="150"  DisplayMemberBinding="{Binding InputData}"/>
+                    <GridViewColumn Header="OutputData" Width="150"  DisplayMemberBinding="{Binding OutputData}"/>
+                </GridView>
+            </ListView.View>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Name}">
+                        <TextBlock.InputBindings>
+                            <MouseBinding Command="{Binding DataContext.ShowInfoCommand, ElementName=window}" MouseAction="LeftDoubleClick" />
+                        </TextBlock.InputBindings>
+                    </TextBlock>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <Button x:Name="submitButton" Content="Hack it" HorizontalAlignment="Center" Margin="473,341,205,0" VerticalAlignment="Top" Width="114" Height="40" Click="Button_Click" FontSize="16"/>
+        <Label Content="题 目 列 表" HorizontalAlignment="Center" Margin="332,31,320,0" VerticalAlignment="Top" FontSize="24" Width="140"/>
+        <Label x:Name="threadSizeLabel" Content="线程数目：1" HorizontalAlignment="Left" Margin="264,348,0,0" VerticalAlignment="Top" Width="156"/>
+        <Slider x:Name="threadSizeSlider" HorizontalAlignment="Left" Margin="101,353,0,0" VerticalAlignment="Top" Width="150" Maximum="32" Minimum="1" ValueChanged="threadSizeSlider_ValueChanged" SmallChange="0" LargeChange="4"/>
+    </Grid>
+</Window>

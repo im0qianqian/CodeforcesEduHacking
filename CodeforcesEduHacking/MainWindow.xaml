@@ -1,0 +1,14 @@
+﻿<Window x:Class="CodeforcesEduHacking.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CodeforcesEduHacking"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid Loaded="Grid_Loaded">
+        <ComboBox x:Name="contestListComboBox" HorizontalAlignment="Center" Margin="0,150,0,0" VerticalAlignment="Top" SelectedIndex="0" FontSize="14" MinWidth="420"/>
+        <Button x:Name="submitButton" Content="开始" HorizontalAlignment="Left" Margin="329,242,0,0" VerticalAlignment="Top" Width="131" Height="46" Click="button1_Click" IsEnabled="False" IsCancel="True" FontSize="20"/>
+        <Label x:Name="titleLabel" Content="正在加载中……" Margin="0,75,0,0" VerticalAlignment="Top" FontSize="24" HorizontalAlignment="Center" Width="400"/>
+    </Grid>
+</Window>

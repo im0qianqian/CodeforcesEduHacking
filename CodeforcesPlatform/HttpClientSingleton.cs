@@ -45,12 +45,11 @@ namespace CodeforcesPlatform
         /// </summary>
         /// <param name="url"></param>
         /// <returns></returns>
-        public static string DoGet(string url)
+        public static async Task<string> DoGetAsync(string url)
         {
             try
             {
-                Console.WriteLine(url);
-                return httpClient.GetStringAsync(url).Result;
+                return await httpClient.GetStringAsync(url);
             }
             catch (Exception ex)
             {
@@ -64,7 +63,7 @@ namespace CodeforcesPlatform
         /// <param name="url"></param>
         /// <param name="args">参数字典</param>
         /// <returns></returns>
-        public static string DoGet(string url, IDictionary<string, string> args)
+        public static async Task<string> DoGetAsync(string url, IDictionary<string, string> args)
         {
             if (args != null && args.Count > 0)
             {
@@ -76,7 +75,7 @@ namespace CodeforcesPlatform
                 argStr = argStr.TrimEnd('&');
                 url += argStr;
             }
-            return DoGet(url);
+            return await DoGetAsync(url);
         }
 
         private static bool CheckValidationResult(object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors errors)

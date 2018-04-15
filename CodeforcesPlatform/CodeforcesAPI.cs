@@ -29,14 +29,14 @@ namespace CodeforcesPlatform
         /// </summary>
         /// <param name="gym">是否显示 GYM 的比赛</param>
         /// <returns>返回 JSON(JObject) 格式的比赛列表</returns>
-        public JObject GetContestList(bool gym = false)
+        public async Task<JObject> GetContestListAsync(bool gym = false)
         {
             try
             {
                 var getParams = new Dictionary<string, string>();
                 if (gym != false)
                     getParams.Add("gym", "true");
-                var jsonData = HttpClientSingleton.DoGet(CONTEST_LIST_URL, getParams);
+                var jsonData = await HttpClientSingleton.DoGetAsync(CONTEST_LIST_URL, getParams);
                 return (JObject)JsonConvert.DeserializeObject(jsonData);
             }
             catch (Exception ex)
@@ -52,7 +52,7 @@ namespace CodeforcesPlatform
         /// <param name="from">起始索引</param>
         /// <param name="count">返回条目</param>
         /// <returns>返回 JSON(JObject) 格式的提交列表，按提交 ID 递减顺序排序</returns>
-        public JObject GetContestStatus(int contestId, string handle = null, int from = -1, int count = -1)
+        public async Task<JObject> GetContestStatusAsync(int contestId, string handle = null, int from = -1, int count = -1)
         {
             try
             {
@@ -64,7 +64,7 @@ namespace CodeforcesPlatform
                     getParams.Add("from", from.ToString());
                 if (count != -1)
                     getParams.Add("count", count.ToString());
-                var jsonData = HttpClientSingleton.DoGet(CONTEST_STATUS_URL, getParams);
+                var jsonData = await HttpClientSingleton.DoGetAsync(CONTEST_STATUS_URL, getParams);
                 return (JObject)JsonConvert.DeserializeObject(jsonData);
             }
             catch (Exception ex)
@@ -82,7 +82,7 @@ namespace CodeforcesPlatform
         /// <param name="handles">查询的用户 ID，多个的话中间用分号分隔</param>
         /// <param name="room">房间号</param>
         /// <returns>返回 JSON(JObject) 格式的比赛榜单</returns>
-        public JObject GetContestStandings(int contestId, bool showUnofficial = false, int from = -1, int count = -1, string handles = null, int room = -1)
+        public async Task<JObject> GetContestStandingsAsync(int contestId, bool showUnofficial = false, int from = -1, int count = -1, string handles = null, int room = -1)
         {
             try
             {
@@ -98,7 +98,7 @@ namespace CodeforcesPlatform
                     getParams.Add("handles", handles);
                 if (room != -1)
                     getParams.Add("room", room.ToString());
-                var jsonData = HttpClientSingleton.DoGet(CONTEST_STANDINGS_URL, getParams);
+                var jsonData = await HttpClientSingleton.DoGetAsync(CONTEST_STANDINGS_URL, getParams);
                 return (JObject)JsonConvert.DeserializeObject(jsonData);
             }
             catch (Exception ex)
@@ -119,7 +119,7 @@ namespace CodeforcesPlatform
             try
             {
                 var url = string.Format(CONTEST_SUBMISSION_URL, contestId, submissionId);
-                var html = HttpClientSingleton.DoGet(url);
+                var html = HttpClientSingleton.DoGetAsync(url).Result;
                 var parser = new HtmlParser();
                 var document = parser.Parse(html);
                 var preCode = document.QuerySelector("pre");

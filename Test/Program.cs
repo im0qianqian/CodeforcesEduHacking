@@ -16,13 +16,13 @@ namespace TestConsole
         {
             try
             {
-                CodeforcesAPI a = new CodeforcesAPI();
-                //var b = a.GetContestStandings(962, true, 1, 2, "im0qianqian", -1);
-                var b = a.GetContestList();
-                foreach (var item in b["result"])
-                {
-                    Console.WriteLine(item["id"] + " " + item["name"]);
-                }
+                //CodeforcesAPI a = new CodeforcesAPI();
+                ////var b = a.GetContestStandings(962, true, 1, 2, "im0qianqian", -1);
+                //var b = a.GetContestList();
+                //foreach (var item in b["result"])
+                //{
+                //    Console.WriteLine(item["id"] + " " + item["name"]);
+                //}
                 //Console.WriteLine(b);
             }
             catch (Exception ex)
