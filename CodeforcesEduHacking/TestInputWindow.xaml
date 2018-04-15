@@ -1,0 +1,18 @@
+﻿<Window x:Class="CodeforcesEduHacking.TestInputWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CodeforcesEduHacking"
+        mc:Ignorable="d"
+        Title="TestInputWindow" Height="500" Width="600">
+    <Grid x:Name="mainGrid" ShowGridLines="True">
+        <Label x:Name="titleLabel" Content="Test Title" HorizontalAlignment="Left" Margin="60,46,0,0" VerticalAlignment="Top" FontSize="16"/>
+        <Button x:Name="submitButton" Content="确定" HorizontalAlignment="Left" Margin="160,398,0,0" VerticalAlignment="Top" Click="submitButton_Click" FontSize="16" Width="100"/>
+        <TextBox x:Name="inputTextBox" HorizontalAlignment="Left" Height="200" Margin="60,147,0,0" VerticalAlignment="Top" Width="200" AcceptsReturn="True"/>
+        <Label Content="Examples input" HorizontalAlignment="Left" Margin="60,106,0,0" VerticalAlignment="Top" FontSize="16"/>
+        <Label Content="Examples output" HorizontalAlignment="Left" Margin="332,106,0,0" VerticalAlignment="Top" FontSize="16"/>
+        <TextBox x:Name="outputTextBox" HorizontalAlignment="Right" Height="200" Margin="0,147,60,0" VerticalAlignment="Top" Width="200" AcceptsReturn="True"/>
+        <Button x:Name="cancelButton" Content="取消" HorizontalAlignment="Left" Margin="332,398,0,0" VerticalAlignment="Top" Width="100" FontSize="16" Click="cancelButton_Click"/>
+    </Grid>
+</Window>

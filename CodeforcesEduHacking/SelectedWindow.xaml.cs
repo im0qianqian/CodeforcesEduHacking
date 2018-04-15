@@ -1,8 +1,12 @@
-﻿using System;
+﻿using CodeforcesPlatform;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -20,15 +24,27 @@ namespace CodeforcesEduHacking
     /// </summary>
     public partial class SelectedWindow : Window
     {
-        private class CFProblem
+        private const string SPLIT_STRING = "\r\n---\r\n";
+        private string contestId;
+        private CodeforcesAPI codeforcesApi = null;
+        private JObject problemList = null;
+        private class CFProblem : INotifyPropertyChanged
         {
+            public string Count { get; set; }
             public string Id { get; }
             public string Title { get; }
             public string InputData
             {
                 get
                 {
-                    return string.Join("\n", inputData);
+                    if (inputData == null) return "";
+                    return string.Join(SPLIT_STRING, inputData);
+                }
+                set
+                {
+                    if (value == null) return;
+                    inputData = Regex.Split(value, SPLIT_STRING);
+                    NotifyChange("InputData");
                 }
             }
             private string[] inputData;
@@ -36,17 +52,45 @@ namespace CodeforcesEduHacking
             {
                 get
                 {
-                    return string.Join("\n", outputData);
+                    if (outputData == null) return "";
+                    return string.Join(SPLIT_STRING, outputData);
+                }
+                set
+                {
+                    if (value == null) return;
+                    outputData = Regex.Split(value, SPLIT_STRING);
+                    NotifyChange("OutputData");
                 }
             }
             private string[] outputData;
-            public bool Enable { get; set; }
 
+            public string[] GetInputData()
+            {
+                return inputData;
+            }
+
+            public string[] GetOutputData()
+            {
+                return outputData;
+            }
+
+            public event PropertyChangedEventHandler PropertyChanged;
+            private void NotifyChange(string propertyName)
+            {
+                if (PropertyChanged != null)
+                {
+                    PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+                }
+            }
+
+            public bool Enable { get; set; }
+            public string ContestId { get; }
             public object ProblemObject { get; }
             public CFProblem() { }
-            public CFProblem(string id, string title, string[] inputData, string[] outputData, bool enable = false)
+            public CFProblem(string id, string contestId, string title, string[] inputData = null, string[] outputData = null, bool enable = false)
             {
                 this.Id = id;
+                this.ContestId = contestId;
                 this.Title = title;
                 this.inputData = inputData;
                 this.outputData = outputData;
@@ -55,19 +99,44 @@ namespace CodeforcesEduHacking
             }
         }
 
-        public SelectedWindow()
+        public SelectedWindow(string contestId = "1")
         {
             InitializeComponent();
+
+            this.contestId = contestId;
         }
 
 
-        private void Grid_Loaded(object sender, RoutedEventArgs e)
+        private async Task LoadProblemList()
         {
-            string[] sk = { "111", "222" };
-            for (int i = 0; i < 5; i++)
+            problemList = await codeforcesApi.GetProblemSetProblemsAsync();
+            if (problemList["status"].ToString() == "OK")
             {
-                problemList.Items.Add(new CFProblem(((char)('A' + i)).ToString(), i.ToString(), sk, sk));
+                var list = problemList["result"]["problems"];
+                foreach (var item in list.Reverse())
+                {
+                    if (item["contestId"].ToString() == contestId)
+                    {
+                        problemListView.Items.Add(new CFProblem(item["index"].ToString(), contestId, item["name"].ToString()));
+                    }
+                }
             }
+        }
+
+        private async void Grid_Loaded(object sender, RoutedEventArgs e)
+        {
+            codeforcesApi = new CodeforcesAPI();
+
+            await LoadProblemList();
+
+            titleLabel.Content = "题 目 列 表";
+
+            //string[] sk = { "111", "222" };
+            //for (int i = 0; i < 5; i++)
+            //{
+            //    var newData = new CFProblem(((char)('A' + i)).ToString(), "111", i.ToString(), sk, sk);
+            //    problemListView.Items.Add(newData);
+            //}
         }
 
         private void Complete_Click(object sender, RoutedEventArgs e)
@@ -79,12 +148,12 @@ namespace CodeforcesEduHacking
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            foreach (var item in problemList.Items)
+            foreach (var item in problemListView.Items)
             {
                 var s = (CFProblem)item;
                 if (s.Enable)
                 {
-                    MessageBox.Show(s.Id);
+                    MessageBox.Show(s.Id + " " + s.Title);
                 }
             }
         }
@@ -94,13 +163,21 @@ namespace CodeforcesEduHacking
             this.threadSizeLabel.Content = "线程数目：" + ((int)(e.NewValue)).ToString();
         }
 
-        private void problemList_PreviewMouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void problemListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            var txtBox = sender;
-            //var model = txtBox.DataContext as CFProblem;//ListBoxModel是自定义的数据对象
-            //CFProblem a = (CFProblem)sender;
-
-            MessageBox.Show(sender.ToString());
+            try
+            {
+                var listView = sender as ListView;
+                var item = listView.SelectedItem as CFProblem;
+                var inputForm = new TestInputWindow(item.InputData, item.OutputData, item.Title);
+                inputForm.ShowDialog();
+                item.InputData = inputForm.InputData;
+                item.OutputData = inputForm.OutputData;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }

@@ -18,6 +18,7 @@ namespace CodeforcesPlatform
         private const string CONTEST_LIST_URL = HOST_URL + "/api/contest.list";
         private const string CONTEST_STANDINGS_URL = HOST_URL + "/api/contest.standings";
         private const string CONTEST_STATUS_URL = HOST_URL + "/api/contest.status";
+        private const string PROBLEMSET_PROBLEMS_URL = HOST_URL + "/api/problemset.problems";
         private const string CONTEST_SUBMISSION_URL = HOST_URL + "/contest/{0}/submission/{1}";
 
         public CodeforcesAPI()
@@ -125,6 +126,27 @@ namespace CodeforcesPlatform
                 var preCode = document.QuerySelector("pre");
                 language = preCode.ClassName.Split()[1];
                 return document.QuerySelector("pre").TextContent;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        /// <summary>
+        /// 返回问题集中的所有问题，可以通过标签进行过滤。
+        /// </summary>
+        /// <param name="tags">标签</param>
+        /// <returns>返回 JSON(JObject) 格式的问题列表</returns>
+        public async Task<JObject> GetProblemSetProblemsAsync(string tags = null)
+        {
+            try
+            {
+                var getParams = new Dictionary<string, string>();
+                if (tags != null)
+                    getParams.Add("tags", tags);
+                var jsonData = await HttpClientSingleton.DoGetAsync(PROBLEMSET_PROBLEMS_URL, getParams);
+                return (JObject)JsonConvert.DeserializeObject(jsonData);
             }
             catch (Exception ex)
             {

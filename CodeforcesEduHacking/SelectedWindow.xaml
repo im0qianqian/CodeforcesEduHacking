@@ -7,35 +7,34 @@
         mc:Ignorable="d"
         Title="SelectedWindow" Height="450" Width="800">
     <Grid Loaded="Grid_Loaded">
-        <ListView x:Name="problemList" ItemsSource="{Binding}" Margin="101,82,101,95" HorizontalAlignment="Center" ScrollViewer.HorizontalScrollBarVisibility="Hidden" PreviewMouseDoubleClick="problemList_PreviewMouseDoubleClick">
+        <ListView x:Name="problemListView" ItemsSource="{Binding}" Margin="96,74,96,103" HorizontalAlignment="Center" ScrollViewer.HorizontalScrollBarVisibility="Hidden" MouseDoubleClick="problemListView_MouseDoubleClick">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="#" Width="30">
+                    <GridViewColumn Header="" Width="30">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <CheckBox Tag="{Binding ProblemObject}" Name="Complete" IsThreeState="False" Click="Complete_Click"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Header="ID" Width="30"  DisplayMemberBinding="{Binding Id}"/>
-                    <GridViewColumn Header="Title" Width="220" DisplayMemberBinding="{Binding Title}"/>
-                    <GridViewColumn Header="InputData" Width="150"  DisplayMemberBinding="{Binding InputData}"/>
-                    <GridViewColumn Header="OutputData" Width="150"  DisplayMemberBinding="{Binding OutputData}"/>
+                    <GridViewColumn Header="#" Width="30"  DisplayMemberBinding="{Binding Id}"/>
+                    <GridViewColumn Header="Contest" Width="70"  DisplayMemberBinding="{Binding ContestId}"/>
+                    <GridViewColumn Header="Title" Width="180" DisplayMemberBinding="{Binding Title}"/>
+                    <GridViewColumn Header="InputData" Width="140"  DisplayMemberBinding="{Binding InputData,Mode=TwoWay}"/>
+                    <GridViewColumn Header="OutputData" Width="140"  DisplayMemberBinding="{Binding OutputData,Mode=TwoWay}"/>
                 </GridView>
             </ListView.View>
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock Text="{Binding Name}">
-                        <TextBlock.InputBindings>
-                            <MouseBinding Command="{Binding DataContext.ShowInfoCommand, ElementName=window}" MouseAction="LeftDoubleClick" />
-                        </TextBlock.InputBindings>
-                    </TextBlock>
-                </DataTemplate>
-            </ListView.ItemTemplate>
         </ListView>
-        <Button x:Name="submitButton" Content="Hack it" HorizontalAlignment="Center" Margin="473,341,205,0" VerticalAlignment="Top" Width="114" Height="40" Click="Button_Click" FontSize="16"/>
-        <Label Content="题 目 列 表" HorizontalAlignment="Center" Margin="332,31,320,0" VerticalAlignment="Top" FontSize="24" Width="140"/>
-        <Label x:Name="threadSizeLabel" Content="线程数目：1" HorizontalAlignment="Left" Margin="264,348,0,0" VerticalAlignment="Top" Width="156"/>
-        <Slider x:Name="threadSizeSlider" HorizontalAlignment="Left" Margin="101,353,0,0" VerticalAlignment="Top" Width="150" Maximum="32" Minimum="1" ValueChanged="threadSizeSlider_ValueChanged" SmallChange="0" LargeChange="4"/>
+        <Button x:Name="submitButton" Content="Hack it" Margin="0,0,75,35" VerticalAlignment="Bottom" Click="Button_Click" FontSize="16" Width="120" Height="40" HorizontalAlignment="Right"/>
+        <Label x:Name="titleLabel" Content="正在加载中……" HorizontalAlignment="Center" Margin="312,23,312,0" VerticalAlignment="Top" FontSize="24"/>
+        <Label x:Name="threadSizeLabel" Content="线程数目：1" HorizontalAlignment="Left" Margin="70,0,0,60" VerticalAlignment="Bottom"/>
+        <Slider x:Name="threadSizeSlider" HorizontalAlignment="Left" Margin="70,0,0,35" VerticalAlignment="Bottom" Width="150" Maximum="32" Minimum="1" ValueChanged="threadSizeSlider_ValueChanged" SmallChange="0" LargeChange="4"/>
+        <StackPanel HorizontalAlignment="Center" Margin="0,0,0,62" VerticalAlignment="Bottom" Orientation="Horizontal">
+            <CheckBox Content="C/C++" Margin="0"/>
+            <CheckBox Content="Java" Margin="10,0,0,0"/>
+            <CheckBox Content="Python 2.7" Margin="10,0,0,0"/>
+            <CheckBox Content="Python 3.6" Margin="10,0,0,0"/>
+            <CheckBox Content="C#" Margin="10,0,0,0"/>
+        </StackPanel>
     </Grid>
 </Window>

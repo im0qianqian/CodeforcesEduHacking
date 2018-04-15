@@ -1,0 +1,14 @@
+﻿<Window x:Class="CodeforcesEduHacking.HackExcuteWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CodeforcesEduHacking"
+        mc:Ignorable="d"
+        Title="HackExcuteWindow" Height="450" Width="800">
+    <Grid>
+        <Label Content="Label" HorizontalAlignment="Left" Height="3" Margin="163,105,0,0" VerticalAlignment="Top" Width="0"/>
+        <Label x:Name="titleLabel" Content="正在执行中……" HorizontalAlignment="Left" Margin="73,75,0,0" VerticalAlignment="Top" FontSize="16"/>
+
+    </Grid>
+</Window>

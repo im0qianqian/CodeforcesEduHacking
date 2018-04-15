@@ -59,9 +59,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="HackExcuteWindow.xaml.cs">
+      <DependentUpon>HackExcuteWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SelectedWindow.xaml.cs">
       <DependentUpon>SelectedWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="TestInputWindow.xaml.cs">
+      <DependentUpon>TestInputWindow.xaml</DependentUpon>
+    </Compile>
+    <Page Include="HackExcuteWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -75,6 +85,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="SelectedWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TestInputWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

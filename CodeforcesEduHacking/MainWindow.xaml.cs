@@ -48,17 +48,17 @@ namespace CodeforcesEduHacking
         {
             try
             {
-                //codeforcesApi = new CodeforcesAPI();
-                //await LoadContestList();
+                codeforcesApi = new CodeforcesAPI();
+                await LoadContestList();
 
                 ///
-                for (int i = 0; i < 10; i++)
-                {
-                    contestListComboBox.Items.Add(i.ToString());
-                }
+                //for (int i = 444; i < 470; i++)
+                //{
+                //    contestListComboBox.Items.Add(" " + i.ToString() + " hahahahah");
+                //}
                 ///
 
-                titleLabel.Content = "请选择你所要查询的 Edu Round";
+                titleLabel.Content = "请选择一个 Edu Round";
                 submitButton.IsEnabled = true;
             }
             catch (Exception ex)
@@ -69,9 +69,16 @@ namespace CodeforcesEduHacking
 
         private void button1_Click(object sender, RoutedEventArgs e)
         {
-            //MessageBox.Show(contestListComboBox.Text);
-            SelectedWindow a = new SelectedWindow();
-            a.Show();
+            try
+            {
+                string contestId = contestListComboBox.Text.Substring(0, 4).Trim();
+                SelectedWindow a = new SelectedWindow(contestId);
+                a.Show();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }
