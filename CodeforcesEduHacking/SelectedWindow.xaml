@@ -17,7 +17,7 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Header="#" Width="30"  DisplayMemberBinding="{Binding Id}"/>
+                    <GridViewColumn Header="#" Width="30" DisplayMemberBinding="{Binding Id}"/>
                     <GridViewColumn Header="Contest" Width="70"  DisplayMemberBinding="{Binding ContestId}"/>
                     <GridViewColumn Header="Title" Width="180" DisplayMemberBinding="{Binding Title}"/>
                     <GridViewColumn Header="InputData" Width="140"  DisplayMemberBinding="{Binding InputData,Mode=TwoWay}"/>
@@ -30,11 +30,11 @@
         <Label x:Name="threadSizeLabel" Content="线程数目：1" HorizontalAlignment="Left" Margin="70,0,0,60" VerticalAlignment="Bottom"/>
         <Slider x:Name="threadSizeSlider" HorizontalAlignment="Left" Margin="70,0,0,35" VerticalAlignment="Bottom" Width="150" Maximum="32" Minimum="1" ValueChanged="threadSizeSlider_ValueChanged" SmallChange="0" LargeChange="4"/>
         <StackPanel HorizontalAlignment="Center" Margin="0,0,0,62" VerticalAlignment="Bottom" Orientation="Horizontal">
-            <CheckBox Content="C/C++" Margin="0"/>
-            <CheckBox Content="Java" Margin="10,0,0,0"/>
-            <CheckBox Content="Python 2.7" Margin="10,0,0,0"/>
-            <CheckBox Content="Python 3.6" Margin="10,0,0,0"/>
-            <CheckBox Content="C#" Margin="10,0,0,0"/>
+            <CheckBox x:Name="cppCheckBox" Content="C/C++" Margin="0"/>
+            <CheckBox x:Name="javaCheckBox" Content="Java" Margin="10,0,0,0"/>
+            <CheckBox x:Name="python2CheckBox" Content="Python 2.7" Margin="10,0,0,0"/>
+            <CheckBox x:Name="python3CheckBox" Content="Python 3.6" Margin="10,0,0,0"/>
+            <CheckBox x:Name="csharpCheckBox" Content="C#" Margin="10,0,0,0"/>
         </StackPanel>
     </Grid>
 </Window>

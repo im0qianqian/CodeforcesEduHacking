@@ -14,39 +14,39 @@ namespace TestConsole
     {
         static void Main(string[] args)
         {
-            try
-            {
-                //CodeforcesAPI a = new CodeforcesAPI();
-                ////var b = a.GetContestStandings(962, true, 1, 2, "im0qianqian", -1);
-                //var b = a.GetContestList();
-                //foreach (var item in b["result"])
-                //{
-                //    Console.WriteLine(item["id"] + " " + item["name"]);
-                //}
-                //Console.WriteLine(b);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-
-
             //try
             //{
-            //    CodeforcesAPI a = new CodeforcesAPI();
-            //    string language, code;
-            //    code = a.GetCodeBySubmissionId(962, 37240104, out language);
-            //    Console.WriteLine(language);
-            //    //Console.WriteLine(code);
-            //    var b = new CompilingEnvironment.GNUCompiler();
-            //    string end = b.Execute(code, "4\n-5 R\n0 P\n3 P\n7 B");
-            //    Console.WriteLine(end);
-            //    Console.WriteLine(b.ExcuteTotalTime.TotalSeconds);
+            //    //CodeforcesAPI a = new CodeforcesAPI();
+            //    ////var b = a.GetContestStandings(962, true, 1, 2, "im0qianqian", -1);
+            //    //var b = a.GetContestList();
+            //    //foreach (var item in b["result"])
+            //    //{
+            //    //    Console.WriteLine(item["id"] + " " + item["name"]);
+            //    //}
+            //    //Console.WriteLine(b);
             //}
             //catch (Exception ex)
             //{
             //    Console.WriteLine(ex.Message);
             //}
+
+
+            try
+            {
+                CodeforcesAPI a = new CodeforcesAPI();
+                string language, code;
+                code = a.GetCodeBySubmissionId(962, 37395478, out language);
+                Console.WriteLine(language);
+                Console.WriteLine(code);
+                //var b = new CompilingEnvironment.GNUCompiler();
+                //string end = b.Execute(code, "4\n-5 R\n0 P\n3 P\n7 B");
+                //Console.WriteLine(end);
+                //Console.WriteLine(b.ExcuteTotalTime.TotalSeconds);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
 
 
             //try

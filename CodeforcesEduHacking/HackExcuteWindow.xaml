@@ -6,9 +6,19 @@
         xmlns:local="clr-namespace:CodeforcesEduHacking"
         mc:Ignorable="d"
         Title="HackExcuteWindow" Height="450" Width="800">
-    <Grid>
-        <Label Content="Label" HorizontalAlignment="Left" Height="3" Margin="163,105,0,0" VerticalAlignment="Top" Width="0"/>
-        <Label x:Name="titleLabel" Content="正在执行中……" HorizontalAlignment="Left" Margin="73,75,0,0" VerticalAlignment="Top" FontSize="16"/>
-
+    <Grid Loaded="Grid_Loaded">
+        <Label x:Name="titleLabel" Content="正在执行中……" HorizontalAlignment="Left" Margin="58,44,0,0" VerticalAlignment="Top" FontSize="16"/>
+        <ListView x:Name="excuteListView" Margin="0,92,-3,85" HorizontalAlignment="Center" ScrollViewer.HorizontalScrollBarVisibility="Hidden">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="ID" Width="70" DisplayMemberBinding="{Binding Id}"/>
+                    <GridViewColumn Header="Handle" Width="100" DisplayMemberBinding="{Binding Handle}"/>
+                    <GridViewColumn Header="Url" Width="180" DisplayMemberBinding="{Binding Url}"/>
+                    <GridViewColumn Header="Input" Width="100" DisplayMemberBinding="{Binding InputData}"/>
+                    <GridViewColumn Header="Output" Width="100" DisplayMemberBinding="{Binding OutputData}"/>
+                    <GridViewColumn Header="Expected" Width="100" DisplayMemberBinding="{Binding ExpectedData}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
     </Grid>
 </Window>

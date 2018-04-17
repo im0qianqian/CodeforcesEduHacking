@@ -1,6 +1,7 @@
 ﻿using CodeforcesPlatform;
 using Newtonsoft.Json.Linq;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -148,13 +149,41 @@ namespace CodeforcesEduHacking
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            foreach (var item in problemListView.Items)
+            try
             {
-                var s = (CFProblem)item;
-                if (s.Enable)
+                // Hack 配置
+                var settings = new Dictionary<string, object>();
+
+                // 线程数目
+                settings.Add("threadSize", ((int)threadSizeSlider.Value).ToString());
+
+                // 支持语言
+                var langArray = new ArrayList();
+                if (cppCheckBox.IsChecked.GetValueOrDefault()) langArray.Add("lang-cpp");
+                if (javaCheckBox.IsChecked.GetValueOrDefault()) langArray.Add("lang-java");
+                if (python2CheckBox.IsChecked.GetValueOrDefault() || python3CheckBox.IsChecked.GetValueOrDefault()) langArray.Add("lang-py");
+                if (csharpCheckBox.IsChecked.GetValueOrDefault()) langArray.Add("lang-cs");
+                settings.Add("lang", langArray);
+
+                // 选择的题目及竞赛 ID
+                var problems = new Dictionary<string, KeyValuePair<string[], string[]>>();
+                string contestId = "";
+                foreach (var item in problemListView.Items)
                 {
-                    MessageBox.Show(s.Id + " " + s.Title);
+                    var s = item as CFProblem;
+                    if (s.Enable)
+                        problems.Add(s.Id, new KeyValuePair<string[], string[]>(s.GetInputData(), s.GetOutputData()));
+                    contestId = s.ContestId;
                 }
+                settings.Add("problems", problems);
+                settings.Add("contestId", contestId);
+
+                var hacking = new HackExcuteWindow(settings);
+                hacking.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
 

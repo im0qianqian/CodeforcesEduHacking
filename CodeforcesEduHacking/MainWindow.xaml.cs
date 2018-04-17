@@ -49,13 +49,17 @@ namespace CodeforcesEduHacking
             try
             {
                 codeforcesApi = new CodeforcesAPI();
-                await LoadContestList();
+                //await LoadContestList();
 
                 ///
-                //for (int i = 444; i < 470; i++)
-                //{
-                //    contestListComboBox.Items.Add(" " + i.ToString() + " hahahahah");
-                //}
+                for (int i = 444; i < 470; i++)
+                {
+                    contestListComboBox.Items.Add(" " + i.ToString() + " hahahahah");
+                }
+
+                //string language;
+                //string code = codeforcesApi.GetCodeBySubmissionId(962, 37395478, out language);
+                //MessageBox.Show(code);
                 ///
 
                 titleLabel.Content = "请选择一个 Edu Round";

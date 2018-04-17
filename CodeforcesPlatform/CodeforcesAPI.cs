@@ -124,7 +124,7 @@ namespace CodeforcesPlatform
                 var parser = new HtmlParser();
                 var document = parser.Parse(html);
                 var preCode = document.QuerySelector("pre");
-                language = preCode.ClassName.Split()[1];
+                language = preCode.ClassName.Split()[1].Trim();
                 return document.QuerySelector("pre").TextContent;
             }
             catch (Exception ex)
