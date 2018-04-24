@@ -32,7 +32,9 @@ namespace CodeforcesPlatform
 
             public string StandardErrorText => standardErrorText;
             public abstract string Execute(string sourceCodeText);
+            public abstract Task<string> ExecuteAsync(string sourceCodeText);
             public abstract string Execute(string sourceCodeText, string inputText);
+            public abstract Task<string> ExecuteAsync(string sourceCodeText, string inputText);
             protected virtual void Initialization(string sourceCodeText, string inputText)
             {
                 this.sourceCodeText = sourceCodeText;
@@ -92,6 +94,11 @@ namespace CodeforcesPlatform
                 //process.Close();
             }
 
+            public async override Task<string> ExecuteAsync(string sourceCodeText, string inputText)
+            {
+                return await Task.Run(() => Execute(sourceCodeText, inputText));
+            }
+
             public override string Execute(string sourceCodeText, string inputText)
             {
                 try
@@ -136,6 +143,11 @@ namespace CodeforcesPlatform
             {
                 if (File.Exists(path)) File.Delete(path);
                 if (File.Exists(path + ".exe")) File.Delete(path + ".exe");
+            }
+
+            public async override Task<string> ExecuteAsync(string sourceCodeText)
+            {
+                return await Task.Run(() => Execute(sourceCodeText));
             }
         }
         //public class JavaCompiler : CompilingLanguage

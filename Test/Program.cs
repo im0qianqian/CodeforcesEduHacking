@@ -34,10 +34,10 @@ namespace TestConsole
             try
             {
                 CodeforcesAPI a = new CodeforcesAPI();
-                string language, code;
-                code = a.GetCodeBySubmissionId(962, 37395478, out language);
-                Console.WriteLine(language);
-                Console.WriteLine(code);
+                var code = a.GetCodeBySubmissionIdAsync(958, 37366158).Result;
+                Console.WriteLine(code["code"]);
+                Console.WriteLine(code["language"]);
+                Console.WriteLine(code["handle"]);
                 //var b = new CompilingEnvironment.GNUCompiler();
                 //string end = b.Execute(code, "4\n-5 R\n0 P\n3 P\n7 B");
                 //Console.WriteLine(end);

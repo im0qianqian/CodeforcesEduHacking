@@ -115,17 +115,22 @@ namespace CodeforcesPlatform
         /// <param name="submissionId">提交 ID</param>
         /// <param name="language">返回所使用的编程语言</param>
         /// <returns>返回指定 ID 的提交代码</returns>
-        public string GetCodeBySubmissionId(int contestId, int submissionId, out string language)
+        public async Task<Dictionary<string, string>> GetCodeBySubmissionIdAsync(int contestId, int submissionId)
         {
             try
             {
                 var url = string.Format(CONTEST_SUBMISSION_URL, contestId, submissionId);
-                var html = HttpClientSingleton.DoGetAsync(url).Result;
+                var html = await HttpClientSingleton.DoGetAsync(url);
                 var parser = new HtmlParser();
                 var document = parser.Parse(html);
                 var preCode = document.QuerySelector("pre");
-                language = preCode.ClassName.Split()[1].Trim();
-                return document.QuerySelector("pre").TextContent;
+                var handle = document.QuerySelector("#pageContent table td a").TextContent;
+
+                var dictionary = new Dictionary<string, string>();
+                dictionary.Add("code", document.QuerySelector("pre").TextContent);
+                dictionary.Add("language", preCode.ClassName.Split()[1].Trim());
+                dictionary.Add("handle", handle);
+                return dictionary;
             }
             catch (Exception ex)
             {

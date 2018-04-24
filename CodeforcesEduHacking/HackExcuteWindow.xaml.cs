@@ -101,11 +101,9 @@ namespace CodeforcesEduHacking
 
                 InitStatus();
 
-                MessageBox.Show("Judge Start!!");
-
+                titleLabel.Content = "准备开始";
                 JudgeSubmission();
-
-                MessageBox.Show("The End!!!");
+                titleLabel.Content = "执行完毕";
             }
             catch (Exception ex)
             {
@@ -113,18 +111,16 @@ namespace CodeforcesEduHacking
             }
         }
 
-        private void FoundErrorInCode(string id, string inputData, string expectedData, string outputData)
+        private void FoundErrorInCode(string id, string handle, string inputData, string expectedData, string outputData)
         {
             const string SUBMISSION_URL = "http://codeforces.com/contest/{0}/submission/{1}";
-            excuteListView.Items.Add(new Submission(id, "test", string.Format(SUBMISSION_URL, contestId, id), inputData, outputData, expectedData));
+            excuteListView.Items.Add(new Submission(id, handle, string.Format(SUBMISSION_URL, contestId, id), inputData, outputData, expectedData));
         }
 
-        private void ExecuteCode(CompilingLanguage compiler, string problemId, string code, int submissionId)
+        private async Task ExecuteCode(CompilingLanguage compiler, string problemId, string code, int submissionId, string handle)
         {
             try
             {
-                MessageBox.Show(submissionId.ToString());
-
                 int length = Math.Min(problems[problemId].Key.Length, problems[problemId].Value.Length);
                 for (int i = 0; i < length; i++)
                 {
@@ -134,7 +130,7 @@ namespace CodeforcesEduHacking
 
                     if (expectedData.TrimEnd('\n') != outputData.TrimEnd('\n'))
                     {
-                        FoundErrorInCode(submissionId.ToString(), inputData, expectedData, outputData);
+                        FoundErrorInCode(submissionId.ToString(), handle, inputData, expectedData, outputData);
                     }
                 }
             }
@@ -144,7 +140,7 @@ namespace CodeforcesEduHacking
             }
         }
 
-        private void JudgeSubmission()
+        private async void JudgeSubmission()
         {
             try
             {
@@ -154,15 +150,12 @@ namespace CodeforcesEduHacking
                     string problemId = item.Key;
                     foreach (var subId in item.Value)
                     {
-                        titleLabel.Content = subId.ToString();
-
-                        MessageBox.Show(contestId + " " + subId);
-                        string language;
-                        string code = codeforcesApi.GetCodeBySubmissionId(contestId, subId, out language);
-                        switch (language)
+                        titleLabel.Content = "正在评测：" + subId.ToString();
+                        var code = await codeforcesApi.GetCodeBySubmissionIdAsync(contestId, subId);
+                        switch (code["language"])
                         {
                             case "lang-cpp":
-                                ExecuteCode(gnuCompiler, problemId, code, subId);
+                                await ExecuteCode(gnuCompiler, problemId, code["code"], subId, code["handle"]);
                                 break;
                             case "lang-java":
                                 break;

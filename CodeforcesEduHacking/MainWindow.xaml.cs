@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -49,13 +50,15 @@ namespace CodeforcesEduHacking
             try
             {
                 codeforcesApi = new CodeforcesAPI();
-                //await LoadContestList();
+                //var code = await codeforcesApi.GetCodeBySubmissionIdAsync(71, 37569498);
+                //MessageBox.Show(code["code"]);
+                await LoadContestList();
 
                 ///
-                for (int i = 444; i < 470; i++)
-                {
-                    contestListComboBox.Items.Add(" " + i.ToString() + " hahahahah");
-                }
+                //for (int i = 444; i < 470; i++)
+                //{
+                //    contestListComboBox.Items.Add(" " + i.ToString() + " hahahahah");
+                //}
 
                 //string language;
                 //string code = codeforcesApi.GetCodeBySubmissionId(962, 37395478, out language);
