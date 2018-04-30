@@ -50,8 +50,6 @@ namespace CodeforcesEduHacking
             try
             {
                 codeforcesApi = new CodeforcesAPI();
-                //var code = await codeforcesApi.GetCodeBySubmissionIdAsync(71, 37569498);
-                //MessageBox.Show(code["code"]);
                 await LoadContestList();
 
                 ///
@@ -59,10 +57,6 @@ namespace CodeforcesEduHacking
                 //{
                 //    contestListComboBox.Items.Add(" " + i.ToString() + " hahahahah");
                 //}
-
-                //string language;
-                //string code = codeforcesApi.GetCodeBySubmissionId(962, 37395478, out language);
-                //MessageBox.Show(code);
                 ///
 
                 titleLabel.Content = "请选择一个 Edu Round";

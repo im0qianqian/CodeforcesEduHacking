@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,6 +29,7 @@ namespace CodeforcesEduHacking
         private JObject contestStatus = null;
         private IDictionary<string, List<int>> submissionList = new Dictionary<string, List<int>>();
         private IDictionary<string, KeyValuePair<string[], string[]>> problems = null;
+        private ArrayList lang = null;
         private int contestId = 0;
 
 
@@ -59,6 +62,7 @@ namespace CodeforcesEduHacking
                 this.settings = settings;
                 contestId = int.Parse(settings["contestId"].ToString());
                 problems = settings["problems"] as Dictionary<string, KeyValuePair<string[], string[]>>;
+                lang = settings["lang"] as ArrayList;
             }
             catch (Exception ex)
             {
@@ -96,6 +100,12 @@ namespace CodeforcesEduHacking
         {
             try
             {
+                //FoundErrorInCode("37740511", "im0qianqian", "4", "5", "6");
+                //FoundErrorInCode("37740512", "im0qianqian", "4", "5", "6");
+                //FoundErrorInCode("37740513", "im0qianqian", "4", "5", "6");
+                //FoundErrorInCode("37740514", "im0qianqian", "4", "5", "6");
+                //submissionList.Add("A", new List<int> { 37740511 });
+
                 codeforcesApi = new CodeforcesAPI();
                 contestStatus = await codeforcesApi.GetContestStatusAsync(contestId);
 
@@ -126,7 +136,7 @@ namespace CodeforcesEduHacking
                 {
                     string inputData = problems[problemId].Key[i].Trim();
                     string expectedData = problems[problemId].Value[i].Trim();
-                    string outputData = compiler.Execute(code, inputData).Trim();
+                    string outputData = (await compiler.ExecuteAsync(code, inputData)).Trim();
 
                     if (expectedData.TrimEnd('\n') != outputData.TrimEnd('\n'))
                     {
@@ -152,6 +162,7 @@ namespace CodeforcesEduHacking
                     {
                         titleLabel.Content = "正在评测：" + subId.ToString();
                         var code = await codeforcesApi.GetCodeBySubmissionIdAsync(contestId, subId);
+                        if (lang.IndexOf(code["language"]) == -1) continue;
                         switch (code["language"])
                         {
                             case "lang-cpp":
@@ -170,6 +181,38 @@ namespace CodeforcesEduHacking
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message + " error: CodeforcesEduHacking.JudgeSubmission");
+            }
+        }
+
+        private void Hyperlink_Click(object sender, RoutedEventArgs e)
+        {
+            Hyperlink link = sender as Hyperlink;
+            Process.Start(new ProcessStartInfo(link.NavigateUri.AbsoluteUri));
+        }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                // 复制测试数据
+                var s = excuteListView.SelectedItem as Submission;
+                Clipboard.SetText(s.InputData);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + " error: CodeforcesEduHacking.MenuItem_Click");
+            }
+        }
+
+        private void MenuItem_Click_1(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                excuteListView.Items.RemoveAt(excuteListView.SelectedIndex);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + " error: CodeforcesEduHacking.MenuItem_Click_1");
             }
         }
     }

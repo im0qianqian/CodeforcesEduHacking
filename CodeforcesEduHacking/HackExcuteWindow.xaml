@@ -11,14 +11,29 @@
         <ListView x:Name="excuteListView" Margin="0,92,-3,85" HorizontalAlignment="Center" ScrollViewer.HorizontalScrollBarVisibility="Hidden">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="ID" Width="70" DisplayMemberBinding="{Binding Id}"/>
-                    <GridViewColumn Header="Handle" Width="100" DisplayMemberBinding="{Binding Handle}"/>
-                    <GridViewColumn Header="Url" Width="180" DisplayMemberBinding="{Binding Url}"/>
-                    <GridViewColumn Header="Input" Width="100" DisplayMemberBinding="{Binding InputData}"/>
-                    <GridViewColumn Header="Output" Width="100" DisplayMemberBinding="{Binding OutputData}"/>
-                    <GridViewColumn Header="Expected" Width="100" DisplayMemberBinding="{Binding ExpectedData}"/>
+                    <GridViewColumn Header="ID" Width="100">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock>
+                                    <Hyperlink NavigateUri="{Binding Path=Url}" Click="Hyperlink_Click"> 
+                                        <TextBlock Text="{Binding Path=Id}"/>  
+                                    </Hyperlink>    
+                                </TextBlock>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Handle" Width="120" DisplayMemberBinding="{Binding Handle}"/>
+                    <GridViewColumn Header="Input" Width="140" DisplayMemberBinding="{Binding InputData}"/>
+                    <GridViewColumn Header="Output" Width="140" DisplayMemberBinding="{Binding OutputData}"/>
+                    <GridViewColumn Header="Expected" Width="140" DisplayMemberBinding="{Binding ExpectedData}"/>
                 </GridView>
             </ListView.View>
+            <ListView.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="复制" Click="MenuItem_Click"/>
+                    <MenuItem Header="删除" Click="MenuItem_Click_1"/>
+                </ContextMenu>
+            </ListView.ContextMenu>
         </ListView>
     </Grid>
 </Window>

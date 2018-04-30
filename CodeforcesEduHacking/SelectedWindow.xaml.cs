@@ -163,6 +163,11 @@ namespace CodeforcesEduHacking
                 if (javaCheckBox.IsChecked.GetValueOrDefault()) langArray.Add("lang-java");
                 if (python2CheckBox.IsChecked.GetValueOrDefault() || python3CheckBox.IsChecked.GetValueOrDefault()) langArray.Add("lang-py");
                 if (csharpCheckBox.IsChecked.GetValueOrDefault()) langArray.Add("lang-cs");
+                if (langArray.Count == 0)
+                {
+                    MessageBox.Show("请至少选择一个编程语言");
+                    return;
+                }
                 settings.Add("lang", langArray);
 
                 // 选择的题目及竞赛 ID
@@ -174,6 +179,11 @@ namespace CodeforcesEduHacking
                     if (s.Enable)
                         problems.Add(s.Id, new KeyValuePair<string[], string[]>(s.GetInputData(), s.GetOutputData()));
                     contestId = s.ContestId;
+                }
+                if (problems.Count == 0)
+                {
+                    MessageBox.Show("请至少选择一个题目");
+                    return;
                 }
                 settings.Add("problems", problems);
                 settings.Add("contestId", contestId);
