@@ -60,13 +60,13 @@ namespace CodeforcesEduHacking
                 //}
                 ///
 
-                titleLabel.Content = "请选择一个 Edu Round";
+                titleLabel.Content = "请选择一个 Edu Round or Div. 3";
                 hackCountButton.IsEnabled = true;
                 hackItButton.IsEnabled = true;
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message + " error: MainWindow.Grid_Loaded");
             }
         }
 
@@ -84,7 +84,7 @@ namespace CodeforcesEduHacking
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message + " error: MainWindow.hackItButton_Click");
             }
         }
     }

@@ -35,5 +35,10 @@
                 </ContextMenu>
             </ListView.ContextMenu>
         </ListView>
+        <TextBlock HorizontalAlignment="Right" Margin="0,0,70,50" TextWrapping="Wrap" VerticalAlignment="Bottom">
+            <Hyperlink NavigateUri="https://www.dreamwings.cn/" Click="Hyperlink_Click">
+                <TextBlock Text="hacked by im0qianqian.😝" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
+            </Hyperlink>
+        </TextBlock>
     </Grid>
 </Window>

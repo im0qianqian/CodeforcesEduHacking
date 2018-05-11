@@ -125,7 +125,7 @@ namespace CodeforcesPlatform
 
                     excuteTotalTime = (process.ExitTime - process.StartTime);
 
-                    //ClearCache(filePath);                           // 清理临时文件
+                    ClearCache();                           // 清理临时文件
                 }
                 catch (Exception ex)
                 {
@@ -139,10 +139,28 @@ namespace CodeforcesPlatform
                 return Execute(sourceCodeText, "");
             }
 
-            private void ClearCache(string path)
+            private void ClearCache()
             {
-                if (File.Exists(path)) File.Delete(path);
-                if (File.Exists(path + ".exe")) File.Delete(path + ".exe");
+                try
+                {
+                    // 如果该文件夹不存在直接返回
+                    if (!Directory.Exists(BASE_DIRECTORY)) return;
+
+                    DirectoryInfo dir = new DirectoryInfo(BASE_DIRECTORY);
+                    // 返回目录中所有文件和子目录
+                    FileSystemInfo[] fileinfo = dir.GetFileSystemInfos();
+                    foreach (FileSystemInfo i in fileinfo)
+                    {
+                        if (i is DirectoryInfo)            //判断是否文件夹
+                            new DirectoryInfo(i.FullName).Delete(true); //删除子目录和文件
+                        else
+                            File.Delete(i.FullName);      //删除指定文件
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
             }
 
             public async override Task<string> ExecuteAsync(string sourceCodeText)
