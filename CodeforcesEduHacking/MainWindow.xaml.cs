@@ -38,7 +38,8 @@ namespace CodeforcesEduHacking
                 var list = contestList["result"];
                 foreach (var item in list)
                 {
-                    if (item["name"].ToString().StartsWith("Educational Codeforces Round"))
+                    string now = item["name"].ToString().Trim();
+                    if (now.StartsWith("Educational Codeforces Round") || now.EndsWith("(Div. 3)"))
                         contestListComboBox.Items.Add(string.Format("{0,4} {1}", item["id"], item["name"]));
                 }
                 contestListComboBox.SelectedIndex = list.Count() > 0 ? 0 : -1;
@@ -60,7 +61,8 @@ namespace CodeforcesEduHacking
                 ///
 
                 titleLabel.Content = "请选择一个 Edu Round";
-                submitButton.IsEnabled = true;
+                hackCountButton.IsEnabled = true;
+                hackItButton.IsEnabled = true;
             }
             catch (Exception ex)
             {
@@ -68,13 +70,17 @@ namespace CodeforcesEduHacking
             }
         }
 
-        private void button1_Click(object sender, RoutedEventArgs e)
+        private void hackCountButton_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("正在赶工制作中……");
+        }
+
+        private void hackItButton_Click(object sender, RoutedEventArgs e)
         {
             try
             {
                 string contestId = contestListComboBox.Text.Substring(0, 4).Trim();
-                SelectedWindow a = new SelectedWindow(contestId);
-                a.Show();
+                new SelectedWindow(contestId).Show();
             }
             catch (Exception ex)
             {

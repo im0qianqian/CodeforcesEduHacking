@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
@@ -25,6 +26,20 @@ namespace CodeforcesPlatform
         {
         }
 
+        public string GetContestListUrl(bool gym = false)
+        {
+            try
+            {
+                var getParams = new Dictionary<string, string>();
+                if (gym != false)
+                    getParams.Add("gym", "true");
+                return HttpClientSingleton.DoGetUrl(CONTEST_LIST_URL, getParams);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
         /// <summary>
         /// 查询比赛列表
         /// </summary>
@@ -34,11 +49,28 @@ namespace CodeforcesPlatform
         {
             try
             {
-                var getParams = new Dictionary<string, string>();
-                if (gym != false)
-                    getParams.Add("gym", "true");
-                var jsonData = await HttpClientSingleton.DoGetAsync(CONTEST_LIST_URL, getParams);
+                var jsonData = await HttpClientSingleton.DoGetAsync(GetContestListUrl(gym));
                 return (JObject)JsonConvert.DeserializeObject(jsonData);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public string GetContestStatusUrl(int contestId, string handle = null, int from = -1, int count = -1)
+        {
+            try
+            {
+                var getParams = new Dictionary<string, string>();
+                getParams.Add("contestId", contestId.ToString());
+                if (handle != null)
+                    getParams.Add("handle", handle);
+                if (from != -1)
+                    getParams.Add("from", from.ToString());
+                if (count != -1)
+                    getParams.Add("count", count.ToString());
+                return HttpClientSingleton.DoGetUrl(CONTEST_STATUS_URL, getParams);
             }
             catch (Exception ex)
             {
@@ -57,16 +89,32 @@ namespace CodeforcesPlatform
         {
             try
             {
+                var jsonData = await HttpClientSingleton.DoGetAsync(GetContestStatusUrl(contestId, handle, from, count));
+                return (JObject)JsonConvert.DeserializeObject(jsonData);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public string GetContestStandingsUrl(int contestId, bool showUnofficial = false, int from = -1, int count = -1, string handles = null, int room = -1)
+        {
+            try
+            {
                 var getParams = new Dictionary<string, string>();
                 getParams.Add("contestId", contestId.ToString());
-                if (handle != null)
-                    getParams.Add("handle", handle);
+                if (showUnofficial)
+                    getParams.Add("showUnofficial", "true");
                 if (from != -1)
                     getParams.Add("from", from.ToString());
                 if (count != -1)
                     getParams.Add("count", count.ToString());
-                var jsonData = await HttpClientSingleton.DoGetAsync(CONTEST_STATUS_URL, getParams);
-                return (JObject)JsonConvert.DeserializeObject(jsonData);
+                if (handles != null)
+                    getParams.Add("handles", handles);
+                if (room != -1)
+                    getParams.Add("room", room.ToString());
+                return HttpClientSingleton.DoGetUrl(CONTEST_STANDINGS_URL, getParams);
             }
             catch (Exception ex)
             {
@@ -87,19 +135,7 @@ namespace CodeforcesPlatform
         {
             try
             {
-                var getParams = new Dictionary<string, string>();
-                getParams.Add("contestId", contestId.ToString());
-                if (showUnofficial)
-                    getParams.Add("showUnofficial", "true");
-                if (from != -1)
-                    getParams.Add("from", from.ToString());
-                if (count != -1)
-                    getParams.Add("count", count.ToString());
-                if (handles != null)
-                    getParams.Add("handles", handles);
-                if (room != -1)
-                    getParams.Add("room", room.ToString());
-                var jsonData = await HttpClientSingleton.DoGetAsync(CONTEST_STANDINGS_URL, getParams);
+                var jsonData = await HttpClientSingleton.DoGetAsync(GetContestStandingsUrl(contestId, showUnofficial, from, count, handles, room));
                 return (JObject)JsonConvert.DeserializeObject(jsonData);
             }
             catch (Exception ex)

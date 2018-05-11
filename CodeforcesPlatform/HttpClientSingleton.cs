@@ -56,14 +56,13 @@ namespace CodeforcesPlatform
                 throw ex;
             }
         }
-
         /// <summary>
-        /// HttpClient 实现 Get 请求
+        /// 获取 Url
         /// </summary>
-        /// <param name="url"></param>
-        /// <param name="args">参数字典</param>
-        /// <returns></returns>
-        public static async Task<string> DoGetAsync(string url, IDictionary<string, string> args)
+        /// <param name="url">Host</param>
+        /// <param name="args">参数</param>
+        /// <returns>带参数的 url</returns>
+        public static string DoGetUrl(string url, IDictionary<string, string> args)
         {
             if (args != null && args.Count > 0)
             {
@@ -75,7 +74,18 @@ namespace CodeforcesPlatform
                 argStr = argStr.TrimEnd('&');
                 url += argStr;
             }
-            return await DoGetAsync(url);
+            return url;
+        }
+
+        /// <summary>
+        /// HttpClient 实现 Get 请求
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="args">参数字典</param>
+        /// <returns></returns>
+        public static async Task<string> DoGetAsync(string url, IDictionary<string, string> args)
+        {
+            return await DoGetAsync(DoGetUrl(url,args));
         }
 
         private static bool CheckValidationResult(object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors errors)

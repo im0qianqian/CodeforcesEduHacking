@@ -36,5 +36,10 @@
             <CheckBox x:Name="python3CheckBox" Content="Python 3.6" Margin="10,0,0,0"/>
             <CheckBox x:Name="csharpCheckBox" Content="C#" Margin="10,0,0,0"/>
         </StackPanel>
+        <TextBlock HorizontalAlignment="Left" Margin="416,369,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="150">
+            <Hyperlink x:Name="contestStatusUrl" NavigateUri="http://codeforces.com/api/contest.status?contestId=566" Click="Hyperlink_Click">
+                <TextBlock Text="点击下载 Contest Status" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Hyperlink>
+        </TextBlock>
     </Grid>
 </Window>

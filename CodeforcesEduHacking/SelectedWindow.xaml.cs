@@ -1,10 +1,12 @@
 ﻿using CodeforcesPlatform;
+using Microsoft.Win32;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -104,7 +106,18 @@ namespace CodeforcesEduHacking
         {
             InitializeComponent();
 
-            this.contestId = contestId;
+            try
+            {
+                codeforcesApi = new CodeforcesAPI();
+                // 初始化竞赛 id
+                this.contestId = contestId;
+                // 初始化 contest Status Url
+                this.contestStatusUrl.NavigateUri = new Uri(codeforcesApi.GetContestStatusUrl(int.Parse(contestId)));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + " SelectedWindow.SelectedWindow");
+            }
         }
 
 
@@ -126,8 +139,6 @@ namespace CodeforcesEduHacking
 
         private async void Grid_Loaded(object sender, RoutedEventArgs e)
         {
-            codeforcesApi = new CodeforcesAPI();
-
             await LoadProblemList();
 
             titleLabel.Content = "题 目 列 表";
@@ -188,18 +199,36 @@ namespace CodeforcesEduHacking
                 settings.Add("problems", problems);
                 settings.Add("contestId", contestId);
 
+                // 打开文本对话框选择已下载的文件 （Contest Status）
+                OpenFileDialog dlg = new OpenFileDialog();
+                dlg.Filter = "Json (Contest Status)|*.json";
+                var dlgRes = dlg.ShowDialog();
+                if(!dlgRes.GetValueOrDefault())
+                {
+                    MessageBox.Show("请选择你所下载的 Contest Status!");
+                    return;
+                }
+                settings.Add("contestStatusFilePath", dlg.FileName);
+
+                // 打开 hack 窗口执行
                 var hacking = new HackExcuteWindow(settings);
                 hacking.ShowDialog();
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message + " error: SelectedWindow.Button_Click");
             }
         }
 
         private void threadSizeSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             this.threadSizeLabel.Content = "线程数目：" + ((int)(e.NewValue)).ToString();
+        }
+
+        private void Hyperlink_Click(object sender, RoutedEventArgs e)
+        {
+            Hyperlink link = sender as Hyperlink;
+            Process.Start(new ProcessStartInfo(link.NavigateUri.AbsoluteUri));
         }
 
         private void problemListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)

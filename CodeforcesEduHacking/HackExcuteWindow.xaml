@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="HackExcuteWindow" Height="450" Width="800">
     <Grid Loaded="Grid_Loaded">
-        <Label x:Name="titleLabel" Content="正在执行中……" HorizontalAlignment="Left" Margin="58,44,0,0" VerticalAlignment="Top" FontSize="16"/>
+        <Label x:Name="titleLabel" Content="正在加载提交列表……" HorizontalAlignment="Left" Margin="58,44,0,0" VerticalAlignment="Top" FontSize="16"/>
         <ListView x:Name="excuteListView" Margin="0,92,-3,85" HorizontalAlignment="Center" ScrollViewer.HorizontalScrollBarVisibility="Hidden">
             <ListView.View>
                 <GridView>

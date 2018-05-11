@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using CodeforcesPlatform;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using static CodeforcesPlatform.CompilingEnvironment;
 
@@ -31,6 +33,8 @@ namespace CodeforcesEduHacking
         private IDictionary<string, KeyValuePair<string[], string[]>> problems = null;
         private ArrayList lang = null;
         private int contestId = 0;
+        private string contestStatusFilePath = null;
+        private bool isStarted = true;
 
 
         private class Submission
@@ -59,16 +63,26 @@ namespace CodeforcesEduHacking
 
             try
             {
+                // 创建 api
+                codeforcesApi = new CodeforcesAPI();
+
                 this.settings = settings;
                 contestId = int.Parse(settings["contestId"].ToString());
                 problems = settings["problems"] as Dictionary<string, KeyValuePair<string[], string[]>>;
                 lang = settings["lang"] as ArrayList;
+                contestStatusFilePath = settings["contestStatusFilePath"] as string;
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message + " error: CodeforcesEduHacking.HackExcuteWindow");
             }
 
+        }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            isStarted = false;
+            base.OnClosed(e);
         }
 
         private void InitStatus()
@@ -100,14 +114,9 @@ namespace CodeforcesEduHacking
         {
             try
             {
-                //FoundErrorInCode("37740511", "im0qianqian", "4", "5", "6");
-                //FoundErrorInCode("37740512", "im0qianqian", "4", "5", "6");
-                //FoundErrorInCode("37740513", "im0qianqian", "4", "5", "6");
-                //FoundErrorInCode("37740514", "im0qianqian", "4", "5", "6");
-                //submissionList.Add("A", new List<int> { 37740511 });
-
-                codeforcesApi = new CodeforcesAPI();
-                contestStatus = await codeforcesApi.GetContestStatusAsync(contestId);
+                // 这里更改为从本地读取文件（直接用程序下载容易出错）
+                var jsonData = new StreamReader(contestStatusFilePath).ReadToEnd();
+                contestStatus = (JObject)JsonConvert.DeserializeObject(jsonData);
 
                 InitStatus();
 
@@ -123,6 +132,7 @@ namespace CodeforcesEduHacking
 
         private void FoundErrorInCode(string id, string handle, string inputData, string expectedData, string outputData)
         {
+            // 在界面中显示该条记录
             const string SUBMISSION_URL = "http://codeforces.com/contest/{0}/submission/{1}";
             excuteListView.Items.Add(new Submission(id, handle, string.Format(SUBMISSION_URL, contestId, id), inputData, outputData, expectedData));
         }
@@ -131,6 +141,7 @@ namespace CodeforcesEduHacking
         {
             try
             {
+                // 取测试输入数据与测试输出数据的最小值
                 int length = Math.Min(problems[problemId].Key.Length, problems[problemId].Value.Length);
                 for (int i = 0; i < length; i++)
                 {
@@ -141,6 +152,7 @@ namespace CodeforcesEduHacking
                     if (expectedData.TrimEnd('\n') != outputData.TrimEnd('\n'))
                     {
                         FoundErrorInCode(submissionId.ToString(), handle, inputData, expectedData, outputData);
+                        break;
                     }
                 }
             }
@@ -160,21 +172,29 @@ namespace CodeforcesEduHacking
                     string problemId = item.Key;
                     foreach (var subId in item.Value)
                     {
-                        titleLabel.Content = "正在评测：" + subId.ToString();
-                        var code = await codeforcesApi.GetCodeBySubmissionIdAsync(contestId, subId);
-                        if (lang.IndexOf(code["language"]) == -1) continue;
-                        switch (code["language"])
+                        try
                         {
-                            case "lang-cpp":
-                                await ExecuteCode(gnuCompiler, problemId, code["code"], subId, code["handle"]);
-                                break;
-                            case "lang-java":
-                                break;
-                            case "lang-py":
-                                break;
-                            case "lang-cs":
-                                break;
+                            titleLabel.Content = "正在评测：" + subId.ToString();
+                            var code = await codeforcesApi.GetCodeBySubmissionIdAsync(contestId, subId);
+                            if (lang.IndexOf(code["language"]) == -1) continue;
+                            switch (code["language"])
+                            {
+                                case "lang-cpp":
+                                    await ExecuteCode(gnuCompiler, problemId, code["code"], subId, code["handle"]);
+                                    break;
+                                case "lang-java":
+                                    break;
+                                case "lang-py":
+                                    break;
+                                case "lang-cs":
+                                    break;
+                            }
                         }
+                        catch (Exception)
+                        {
+                        }
+                        // 如果当前标记置为 false，则退出
+                        if (!isStarted) return;
                     }
                 }
             }
@@ -208,6 +228,7 @@ namespace CodeforcesEduHacking
         {
             try
             {
+                // 删除该条记录
                 excuteListView.Items.RemoveAt(excuteListView.SelectedIndex);
             }
             catch (Exception ex)
