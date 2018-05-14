@@ -1,5 +1,6 @@
 # Codeforces Edu & Div.3 Hacking
 
+
 ## **简介**
 
 还在发愁打了那么多场比赛都没有进入首页么？
@@ -40,6 +41,8 @@
 
 
 ## **需要做什么**
+
+- 确保本地已安装 `.net framework 4.6.1` 或更高版本支持
 
 - 配置本地 `GCC/G++` 环境变量（需支持编译参数 `-pipe -O2 -DONLINE_JUDGE -std=c++14 -m32` ）
 - 配置本地 `Java 8` 环境变量
