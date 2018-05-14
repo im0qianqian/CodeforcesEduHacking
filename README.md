@@ -1,35 +1,48 @@
-# Codeforces Edu Hacking
+# Codeforces Edu & Div.3 Hacking
 ## **简介**
 
-Codeforces Edu 场错误代码查找器。
+还在发愁打了那么多场比赛都没有进入首页么？
 
-可在每次 Edu 结束后 24 小时内食用。
+还在为了前 rk5 的 hacker 名额阅读千份代码么？
 
+是的，你没有看错！
 
+这是一个 Edu & Div.3 轮 Open hacking 错误代码自动查找器！
 
-## **暂定需求**
+你只需要提前构造好某些题的叉点数据，填入它，OK！一切就是这么的方便！
 
-- [x] 可选择 contest
-- [x] 可指定所查询的题目（A、B、C、D、E、F?）
-- [x] 可指定若干组输入数据以及正确的输出结果（使用 `---` 分隔）
-- [ ] 并行化查询
-- [ ] 可选择本地支持的编译环境
-- [x] 最终查询
-- [ ] 评判 [暂停 / 继续]
-- [ ] 区间分段查询
-- [x] 可查看当前 Hack 榜单
+**注：仅适用于 Edu 以及 Div.3 轮比赛赛后 hack，不支持 Div.1/2 赛时 hack。**
+
+**下载地址：** http://codeforces-edu-hacking.dreamwings.cn/
 
 
+
+## **功能实现**
+
+- Hack
+  - [x] 指定 contest id
+  - [x] 指定题目编号（A、B、C、D、E、F?）
+  - [x] 多组测试数据填入
+  - [ ] 并行化查询
+  - [ ] 指定区间查询
+  - [ ] 评判 [暂停/继续]
+  - [x] 评判结果查看
+  - 支持语言
+    - [x] C/C++
+    - [ ] Java
+    - [ ] Python 2.7
+    - [ ] Python 3.6
+    - [ ] C#
+- Ranking
+  - [x] Hack 榜单（前十）
 
 
 
 ## **需要做什么**
 
-- 本地 `GCC/G++` 环境变量
-- 本地 `Java 8` 环境变量
-- 本地 `Python 2/3` 环境变量
-
-
+- 配置本地 `GCC/G++` 环境变量（需支持编译参数 `-pipe -O2 -DONLINE_JUDGE -std=c++14 -m32` ）
+- 配置本地 `Java 8` 环境变量
+- 配置本地 `Python 2/3` 环境变量
 
 
 
