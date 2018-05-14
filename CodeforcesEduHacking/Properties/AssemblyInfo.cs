@@ -8,7 +8,7 @@ using System.Windows;
 // 控制。更改这些特性值可修改
 // 与程序集关联的信息。
 [assembly: AssemblyTitle("CodeforcesEduHacking")]
-[assembly: AssemblyDescription("只是一个简单的 Edu Hack 程序")]
+[assembly: AssemblyDescription("by im0qianqian.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("imqxms.")]
 [assembly: AssemblyProduct("CodeforcesEduHacking")]
