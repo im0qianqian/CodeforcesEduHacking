@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Deployment.Application;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -51,6 +52,12 @@ namespace CodeforcesEduHacking
         {
             try
             {
+#if DEBUG
+                currentVersionLabel.Content = "当前版本号：1.0.0.0";
+#else
+                currentVersionLabel.Content = "当前版本号：" + ApplicationDeployment.CurrentDeployment.CurrentVersion.ToString();
+#endif
+
                 codeforcesApi = new CodeforcesAPI();
                 await LoadContestList();
 
