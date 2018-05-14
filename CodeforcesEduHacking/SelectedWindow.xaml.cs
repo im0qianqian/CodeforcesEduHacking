@@ -123,26 +123,39 @@ namespace CodeforcesEduHacking
 
         private async Task LoadProblemList()
         {
-            problemList = await codeforcesApi.GetProblemSetProblemsAsync();
-            if (problemList["status"].ToString() == "OK")
+            try
             {
-                var list = problemList["result"]["problems"];
-                foreach (var item in list.Reverse())
+                problemList = await codeforcesApi.GetProblemSetProblemsAsync();
+                if (problemList["status"].ToString() == "OK")
                 {
-                    if (item["contestId"].ToString() == contestId)
+                    var list = problemList["result"]["problems"];
+                    foreach (var item in list.Reverse())
                     {
-                        problemListView.Items.Add(new CFProblem(item["index"].ToString(), contestId, item["name"].ToString()));
+                        if (item["contestId"].ToString() == contestId)
+                        {
+                            problemListView.Items.Add(new CFProblem(item["index"].ToString(), contestId, item["name"].ToString()));
+                        }
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + " error: SelectedWindow.LoadProblemList");
             }
         }
 
         private async void Grid_Loaded(object sender, RoutedEventArgs e)
         {
-            await LoadProblemList();
+            try
+            {
+                await LoadProblemList();
 
-            titleLabel.Content = "题 目 列 表";
-
+                titleLabel.Content = "题 目 列 表";
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + " error: SelectedWindow.Grid_Loaded");
+            }
             //string[] sk = { "111", "222" };
             //for (int i = 0; i < 5; i++)
             //{
@@ -227,8 +240,15 @@ namespace CodeforcesEduHacking
 
         private void Hyperlink_Click(object sender, RoutedEventArgs e)
         {
-            Hyperlink link = sender as Hyperlink;
-            Process.Start(new ProcessStartInfo(link.NavigateUri.AbsoluteUri));
+            try
+            {
+                Hyperlink link = sender as Hyperlink;
+                Process.Start(new ProcessStartInfo(link.NavigateUri.AbsoluteUri));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + " error: SelectedWindow.Hyperlink_Click");
+            }
         }
 
         private void problemListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)

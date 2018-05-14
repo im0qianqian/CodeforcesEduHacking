@@ -211,8 +211,15 @@ namespace CodeforcesEduHacking
 
         private void Hyperlink_Click(object sender, RoutedEventArgs e)
         {
-            Hyperlink link = sender as Hyperlink;
-            Process.Start(new ProcessStartInfo(link.NavigateUri.AbsoluteUri));
+            try
+            {
+                Hyperlink link = sender as Hyperlink;
+                Process.Start(new ProcessStartInfo(link.NavigateUri.AbsoluteUri));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + " error: HackExcuteWindow.Hyperlink_Click");
+            }
         }
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
