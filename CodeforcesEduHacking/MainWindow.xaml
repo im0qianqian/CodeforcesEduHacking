@@ -8,9 +8,9 @@
         Title="MainWindow" Height="450" Width="800">
     <Grid Loaded="Grid_Loaded">
         <ComboBox x:Name="contestListComboBox" HorizontalAlignment="Center" Margin="0,150,0,0" VerticalAlignment="Top" SelectedIndex="0" FontSize="14" MinWidth="420"/>
-        <Button x:Name="hackItButton" Content="Hack It" Margin="0,242,200,0" VerticalAlignment="Top" Width="131" Height="46" Click="hackItButton_Click" IsEnabled="False" IsCancel="True" FontSize="16"/>
+        <Button x:Name="hackItButton" Content="Hack" Margin="0,242,200,0" VerticalAlignment="Top" Width="131" Height="46" Click="hackItButton_Click" IsEnabled="False" IsCancel="True" FontSize="16"/>
         <Label x:Name="titleLabel" Content="正在加载中……" Margin="0,75,0,0" VerticalAlignment="Top" FontSize="24" HorizontalAlignment="Center" Width="400"/>
-        <Button x:Name="hackCountButton" Content="Hack Count" Margin="200,242,0,0" VerticalAlignment="Top" Width="131" Height="46" IsEnabled="False" IsCancel="True" FontSize="16" Click="hackCountButton_Click"/>
-        <Label Content="by im0qianqian." HorizontalAlignment="Right" Margin="0,0,50,30" VerticalAlignment="Bottom"/>
+        <Button x:Name="hackCountButton" Content="Ranking" Margin="200,242,0,0" VerticalAlignment="Top" Width="131" Height="46" IsEnabled="False" IsCancel="True" FontSize="16" Click="hackCountButton_Click"/>
+        <Label Content="Author:         im0qianqian&#xA;QQ Group:   253989650" HorizontalAlignment="Right" Margin="0,0,70,40" VerticalAlignment="Bottom" Background="{x:Null}" Foreground="#FF5D5858"/>
     </Grid>
 </Window>

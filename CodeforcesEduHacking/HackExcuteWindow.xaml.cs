@@ -45,8 +45,9 @@ namespace CodeforcesEduHacking
             public string InputData { set; get; }
             public string OutputData { set; get; }
             public string ExpectedData { set; get; }
+            public string Time { set; get; }
 
-            public Submission(string id, string handle, string url, string inputData, string outputData, string expectedData)
+            public Submission(string id, string handle, string url, string inputData, string outputData, string expectedData, TimeSpan time)
             {
                 this.Id = id;
                 this.Handle = handle;
@@ -54,6 +55,7 @@ namespace CodeforcesEduHacking
                 this.InputData = inputData;
                 this.OutputData = outputData;
                 this.ExpectedData = expectedData;
+                this.Time = time.Milliseconds + "ms";
             }
         }
 
@@ -130,11 +132,11 @@ namespace CodeforcesEduHacking
             }
         }
 
-        private void FoundErrorInCode(string id, string handle, string inputData, string expectedData, string outputData)
+        private void FoundErrorInCode(string id, string handle, string inputData, string expectedData, string outputData, TimeSpan time)
         {
             // 在界面中显示该条记录
             const string SUBMISSION_URL = "http://codeforces.com/contest/{0}/submission/{1}";
-            excuteListView.Items.Add(new Submission(id, handle, string.Format(SUBMISSION_URL, contestId, id), inputData, outputData, expectedData));
+            excuteListView.Items.Add(new Submission(id, handle, string.Format(SUBMISSION_URL, contestId, id), inputData, outputData, expectedData, time));
         }
 
         private async Task ExecuteCode(CompilingLanguage compiler, string problemId, string code, int submissionId, string handle)
@@ -143,15 +145,18 @@ namespace CodeforcesEduHacking
             {
                 // 取测试输入数据与测试输出数据的最小值
                 int length = Math.Min(problems[problemId].Key.Length, problems[problemId].Value.Length);
+                // Trim 需要去除的字符
+                char[] trimChar = new char[] { '\n', ' ', '\r' };
+
                 for (int i = 0; i < length; i++)
                 {
-                    string inputData = problems[problemId].Key[i].Trim();
-                    string expectedData = problems[problemId].Value[i].Trim();
-                    string outputData = (await compiler.ExecuteAsync(code, inputData)).Trim();
+                    string inputData = problems[problemId].Key[i].Trim(trimChar);
+                    string expectedData = problems[problemId].Value[i].Trim(trimChar);
+                    string outputData = (await compiler.ExecuteAsync(code, inputData)).Trim(trimChar);
 
-                    if (expectedData.TrimEnd('\n') != outputData.TrimEnd('\n'))
+                    if (expectedData != outputData)
                     {
-                        FoundErrorInCode(submissionId.ToString(), handle, inputData, expectedData, outputData);
+                        FoundErrorInCode(submissionId.ToString(), handle, inputData, expectedData, outputData, compiler.ExcuteTotalTime);
                         break;
                     }
                 }

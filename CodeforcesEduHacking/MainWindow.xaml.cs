@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -70,17 +71,62 @@ namespace CodeforcesEduHacking
             }
         }
 
-        private void hackCountButton_Click(object sender, RoutedEventArgs e)
+        private int GetContestId()
         {
-            MessageBox.Show("正在赶工制作中……");
+            try
+            {
+                string contestId = contestListComboBox.Text.Substring(0, 4).Trim();
+                return int.Parse(contestId);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("获取 ContestId 失败！ error: MainWindow.GetContestId");
+            }
+            return 0;
+        }
+
+        private async void hackCountButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                MessageBox.Show("点击确定榜单开始加载，稍后呈现结果，请勿多次点击……",
+                                "Remind",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Warning);
+                var standings = await codeforcesApi.GetContestStandingsAsync(GetContestId(), true);
+                if (standings["status"].ToString() == "OK")
+                {
+                    string message = "";
+                    var rows = standings["result"]["rows"];
+                    var res = new List<KeyValuePair<KeyValuePair<string, double>, KeyValuePair<int, int>>>();
+                    foreach (var item in rows)
+                    {
+                        int successfulHackCount = int.Parse(item["successfulHackCount"].ToString());
+                        int unsuccessfulHackCount = int.Parse(item["unsuccessfulHackCount"].ToString());
+                        string handle = item["party"]["members"][0]["handle"].ToString();
+                        res.Add(new KeyValuePair<KeyValuePair<string, double>, KeyValuePair<int, int>>(new KeyValuePair<string, double>(handle, successfulHackCount - unsuccessfulHackCount / 2.0), new KeyValuePair<int, int>(successfulHackCount, unsuccessfulHackCount)));
+                    }
+                    res.Sort((x, y) => y.Key.Value.CompareTo(x.Key.Value));
+                    for (int i = 0; i < Math.Min(10, res.Count); i++)
+                        message += string.Format("rk{0,-3}. {1,-30}\t({2}):\t{3,5}\t{4,5}\n", i + 1, res[i].Key.Key, res[i].Key.Value, res[i].Value.Key, res[i].Value.Value);
+                    MessageBox.Show(message, contestListComboBox.Text);
+                }
+                else
+                {
+                    throw new Exception();
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Hack Standings 获取失败！");
+            }
         }
 
         private void hackItButton_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                string contestId = contestListComboBox.Text.Substring(0, 4).Trim();
-                new SelectedWindow(contestId).Show();
+                new SelectedWindow(GetContestId().ToString()).Show();
             }
             catch (Exception ex)
             {

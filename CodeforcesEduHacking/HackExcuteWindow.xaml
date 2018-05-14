@@ -24,8 +24,9 @@
                     </GridViewColumn>
                     <GridViewColumn Header="Handle" Width="120" DisplayMemberBinding="{Binding Handle}"/>
                     <GridViewColumn Header="Input" Width="140" DisplayMemberBinding="{Binding InputData}"/>
-                    <GridViewColumn Header="Output" Width="140" DisplayMemberBinding="{Binding OutputData}"/>
-                    <GridViewColumn Header="Expected" Width="140" DisplayMemberBinding="{Binding ExpectedData}"/>
+                    <GridViewColumn Header="Output" Width="120" DisplayMemberBinding="{Binding OutputData}"/>
+                    <GridViewColumn Header="Expected" Width="120" DisplayMemberBinding="{Binding ExpectedData}"/>
+                    <GridViewColumn Header="Time" Width="80" DisplayMemberBinding="{Binding Time}"/>
                 </GridView>
             </ListView.View>
             <ListView.ContextMenu>
