@@ -15,7 +15,19 @@
 
 **注：仅适用于 Edu 以及 Div.3 轮比赛赛后 hack，不支持 Div.1/2 赛时 hack。**
 
-**下载地址：** http://codeforces-edu-hacking.dreamwings.cn/
+
+
+## **相关**
+
+- **适用人群：**想进入首页 Hack 榜的选手
+- **下载地址：**http://codeforces-edu-hacking.dreamwings.cn
+- **使用教程：**https://www.dreamwings.cn/codeforces-edu-hacking/5266.html
+
+
+
+## **程序展示**
+
+![img](https://www.dreamwings.cn/wp-content/uploads/2018/05/20180515113534.png)
 
 
 
@@ -37,19 +49,3 @@
     - [ ] C#
 - Ranking
   - [x] Hack 榜单（前十）
-
-
-
-## **需要做什么**
-
-- 确保本地已安装 `.net framework 4.6.1` 或更高版本支持
-
-- 配置本地 `GCC/G++` 环境变量（需支持编译参数 `-pipe -O2 -DONLINE_JUDGE -std=c++14 -m32` ）
-- 配置本地 `Java 8` 环境变量
-- 配置本地 `Python 2/3` 环境变量
-
-
-
-## **然后呢？**
-
-静静的看着吧！
