@@ -27,7 +27,7 @@
 
 ## **程序展示**
 
-![img](https://www.dreamwings.cn/wp-content/uploads/2018/05/20180515113534.png)
+![img](http://www.dreamwings.cn/wp-content/uploads/2018/05/20180515113534.png)
 
 
 
