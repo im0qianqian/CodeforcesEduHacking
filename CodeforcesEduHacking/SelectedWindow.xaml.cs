@@ -116,7 +116,10 @@ namespace CodeforcesEduHacking
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message + " SelectedWindow.SelectedWindow");
+                MessageBox.Show(ex.Message + " SelectedWindow.SelectedWindow",
+                    "Error",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
             }
         }
 
@@ -140,7 +143,10 @@ namespace CodeforcesEduHacking
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message + " error: SelectedWindow.LoadProblemList");
+                MessageBox.Show(ex.Message + " error: SelectedWindow.LoadProblemList",
+                    "Error",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
             }
         }
 
@@ -154,7 +160,10 @@ namespace CodeforcesEduHacking
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message + " error: SelectedWindow.Grid_Loaded");
+                MessageBox.Show(ex.Message + " error: SelectedWindow.Grid_Loaded",
+                    "Error",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
             }
             //string[] sk = { "111", "222" };
             //for (int i = 0; i < 5; i++)
@@ -189,7 +198,10 @@ namespace CodeforcesEduHacking
                 if (csharpCheckBox.IsChecked.GetValueOrDefault()) langArray.Add("lang-cs");
                 if (langArray.Count == 0)
                 {
-                    MessageBox.Show("请至少选择一个编程语言");
+                    MessageBox.Show("请至少选择一个编程语言",
+                        "Remind",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Warning);
                     return;
                 }
                 settings.Add("lang", langArray);
@@ -206,7 +218,10 @@ namespace CodeforcesEduHacking
                 }
                 if (problems.Count == 0)
                 {
-                    MessageBox.Show("请至少选择一个题目");
+                    MessageBox.Show("请至少选择一个题目",
+                        "Remind",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Warning);
                     return;
                 }
                 settings.Add("problems", problems);
@@ -216,9 +231,12 @@ namespace CodeforcesEduHacking
                 OpenFileDialog dlg = new OpenFileDialog();
                 dlg.Filter = "Json (Contest Status)|*.json";
                 var dlgRes = dlg.ShowDialog();
-                if(!dlgRes.GetValueOrDefault())
+                if (!dlgRes.GetValueOrDefault())
                 {
-                    MessageBox.Show("请选择你所下载的 Contest Status!");
+                    MessageBox.Show("请选择你所下载的 Contest Status!",
+                        "Remind",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Warning);
                     return;
                 }
                 settings.Add("contestStatusFilePath", dlg.FileName);
@@ -229,7 +247,10 @@ namespace CodeforcesEduHacking
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message + " error: SelectedWindow.Button_Click");
+                MessageBox.Show(ex.Message + " error: SelectedWindow.Button_Click",
+                    "Error",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
             }
         }
 
@@ -247,7 +268,10 @@ namespace CodeforcesEduHacking
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message + " error: SelectedWindow.Hyperlink_Click");
+                MessageBox.Show(ex.Message + " error: SelectedWindow.Hyperlink_Click",
+                    "Error",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
             }
         }
 
@@ -264,7 +288,10 @@ namespace CodeforcesEduHacking
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message + " error: SelectedWindow.problemListView_MouseDoubleClick");
+                MessageBox.Show(ex.Message + " error: SelectedWindow.problemListView_MouseDoubleClick",
+                    "Error",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
             }
         }
     }

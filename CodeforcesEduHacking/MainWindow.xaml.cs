@@ -74,7 +74,10 @@ namespace CodeforcesEduHacking
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message + " error: MainWindow.Grid_Loaded");
+                MessageBox.Show(ex.Message + " error: MainWindow.Grid_Loaded",
+                    "Error",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
             }
         }
 
@@ -87,7 +90,10 @@ namespace CodeforcesEduHacking
             }
             catch (Exception)
             {
-                MessageBox.Show("获取 ContestId 失败！ error: MainWindow.GetContestId");
+                MessageBox.Show("获取 ContestId 失败！ error: MainWindow.GetContestId",
+                    "Error",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
             }
             return 0;
         }
@@ -96,10 +102,11 @@ namespace CodeforcesEduHacking
         {
             try
             {
-                MessageBox.Show("点击确定榜单开始加载，稍后呈现结果，请勿多次点击……",
+                var messageBoxRes = MessageBox.Show("点击确定开始加载榜单，稍后将呈现结果，请勿多次点击……",
                                 "Remind",
-                                MessageBoxButton.OK,
+                                MessageBoxButton.OKCancel,
                                 MessageBoxImage.Warning);
+                if (messageBoxRes == MessageBoxResult.Cancel) return;
                 var standings = await codeforcesApi.GetContestStandingsAsync(GetContestId(), true);
                 if (standings["status"].ToString() == "OK")
                 {
@@ -125,7 +132,10 @@ namespace CodeforcesEduHacking
             }
             catch (Exception)
             {
-                MessageBox.Show("Hack Standings 获取失败！");
+                MessageBox.Show("Hack Standings 获取失败！",
+                    "Error",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
             }
         }
 
@@ -137,7 +147,10 @@ namespace CodeforcesEduHacking
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message + " error: MainWindow.hackItButton_Click");
+                MessageBox.Show(ex.Message + " error: MainWindow.hackItButton_Click",
+                    "Error",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
             }
         }
     }

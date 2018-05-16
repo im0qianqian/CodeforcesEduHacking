@@ -46,7 +46,10 @@ namespace CodeforcesEduHacking
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message + " error: TestInputWindow.submitButton_Click");
+                MessageBox.Show(ex.Message + " error: TestInputWindow.submitButton_Click",
+                    "Error",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
             }
         }
     }

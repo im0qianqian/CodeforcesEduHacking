@@ -45,6 +45,30 @@ namespace CodeforcesPlatform
             {
                 return nextFileId++;
             }
+
+            protected void ClearCache()
+            {
+                try
+                {
+                    // 如果该文件夹不存在直接返回
+                    if (!Directory.Exists(BASE_DIRECTORY)) return;
+
+                    DirectoryInfo dir = new DirectoryInfo(BASE_DIRECTORY);
+                    // 返回目录中所有文件和子目录
+                    FileSystemInfo[] fileinfo = dir.GetFileSystemInfos();
+                    foreach (FileSystemInfo i in fileinfo)
+                    {
+                        if (i is DirectoryInfo)            //判断是否文件夹
+                            new DirectoryInfo(i.FullName).Delete(true); //删除子目录和文件
+                        else
+                            File.Delete(i.FullName);      //删除指定文件
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
         }
 
         public class GNUCompiler : CompilingLanguage
@@ -139,30 +163,6 @@ namespace CodeforcesPlatform
                 return Execute(sourceCodeText, "");
             }
 
-            private void ClearCache()
-            {
-                try
-                {
-                    // 如果该文件夹不存在直接返回
-                    if (!Directory.Exists(BASE_DIRECTORY)) return;
-
-                    DirectoryInfo dir = new DirectoryInfo(BASE_DIRECTORY);
-                    // 返回目录中所有文件和子目录
-                    FileSystemInfo[] fileinfo = dir.GetFileSystemInfos();
-                    foreach (FileSystemInfo i in fileinfo)
-                    {
-                        if (i is DirectoryInfo)            //判断是否文件夹
-                            new DirectoryInfo(i.FullName).Delete(true); //删除子目录和文件
-                        else
-                            File.Delete(i.FullName);      //删除指定文件
-                    }
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-            }
-
             public async override Task<string> ExecuteAsync(string sourceCodeText)
             {
                 return await Task.Run(() => Execute(sourceCodeText));
@@ -170,12 +170,25 @@ namespace CodeforcesPlatform
         }
         //public class JavaCompiler : CompilingLanguage
         //{
-        //    private CompilingLanguage instance = null;
-        //    public CompilingLanguage GetInstance()
+
+        //    public override string Execute(string sourceCodeText)
         //    {
-        //        if (instance == null)
-        //            instance = new JavaCompiler();
-        //        return instance;
+        //        throw new NotImplementedException();
+        //    }
+
+        //    public override string Execute(string sourceCodeText, string inputText)
+        //    {
+        //        throw new NotImplementedException();
+        //    }
+
+        //    public override Task<string> ExecuteAsync(string sourceCodeText)
+        //    {
+        //        throw new NotImplementedException();
+        //    }
+
+        //    public override Task<string> ExecuteAsync(string sourceCodeText, string inputText)
+        //    {
+        //        throw new NotImplementedException();
         //    }
         //}
     }

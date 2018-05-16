@@ -76,7 +76,10 @@ namespace CodeforcesEduHacking
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message + " error: HackExcuteWindow.HackExcuteWindow");
+                MessageBox.Show(ex.Message + " error: HackExcuteWindow.HackExcuteWindow",
+                    "Error",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
             }
 
         }
@@ -108,7 +111,10 @@ namespace CodeforcesEduHacking
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message + " error: HackExcuteWindow.initStatus");
+                MessageBox.Show(ex.Message + " error: HackExcuteWindow.initStatus",
+                    "Error",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
             }
         }
 
@@ -128,7 +134,10 @@ namespace CodeforcesEduHacking
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message + " error: HackExcuteWindow.Grid_Loaded");
+                MessageBox.Show(ex.Message + " error: HackExcuteWindow.Grid_Loaded",
+                    "Error",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
             }
         }
 
@@ -163,7 +172,10 @@ namespace CodeforcesEduHacking
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message + " error: HackExcuteWindow.ExecuteCode");
+                MessageBox.Show(ex.Message + " error: HackExcuteWindow.ExecuteCode",
+                    "Error",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
             }
         }
 
@@ -205,7 +217,10 @@ namespace CodeforcesEduHacking
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message + " error: HackExcuteWindow.JudgeSubmission");
+                MessageBox.Show(ex.Message + " error: HackExcuteWindow.JudgeSubmission",
+                    "Error",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
             }
         }
 
@@ -218,7 +233,10 @@ namespace CodeforcesEduHacking
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message + " error: HackExcuteWindow.Hyperlink_Click");
+                MessageBox.Show(ex.Message + " error: HackExcuteWindow.Hyperlink_Click",
+                    "Error",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
             }
         }
 
@@ -232,7 +250,10 @@ namespace CodeforcesEduHacking
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message + " error: HackExcuteWindow.MenuItem_Click");
+                MessageBox.Show(ex.Message + " error: HackExcuteWindow.MenuItem_Click",
+                    "Error",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
             }
         }
 
@@ -245,7 +266,10 @@ namespace CodeforcesEduHacking
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message + " error: HackExcuteWindow.MenuItem_Click_1");
+                MessageBox.Show(ex.Message + " error: HackExcuteWindow.MenuItem_Click_1",
+                    "Error",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
             }
         }
     }
