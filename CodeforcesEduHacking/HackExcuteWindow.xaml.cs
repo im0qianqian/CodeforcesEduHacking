@@ -35,6 +35,10 @@ namespace CodeforcesEduHacking
         private int contestId = 0;
         private string contestStatusFilePath = null;
         private bool isStarted = true;
+        // 查询区间左端点
+        private int submissionIdRangeLeft = 0;
+        // 查询区间右端点
+        private int submissionIdRangeRight = int.MaxValue;
 
 
         private class Submission
@@ -73,6 +77,11 @@ namespace CodeforcesEduHacking
                 problems = settings["problems"] as Dictionary<string, KeyValuePair<string[], string[]>>;
                 lang = settings["lang"] as ArrayList;
                 contestStatusFilePath = settings["contestStatusFilePath"] as string;
+
+                // 设置查询区间
+                var submissionIdRange = (KeyValuePair<int, int>)settings["submissionIdRange"];
+                submissionIdRangeLeft = submissionIdRange.Key;
+                submissionIdRangeRight = submissionIdRange.Value;
             }
             catch (Exception ex)
             {
@@ -98,13 +107,16 @@ namespace CodeforcesEduHacking
                 {
                     foreach (var item in contestStatus["result"])
                     {
-
                         var idx = item["problem"]["index"].ToString().Trim();
                         if (item["verdict"].ToString().Trim() == "OK" && problems.ContainsKey(idx))
                         {
+                            // id 为选手提交题目的 submissionId
+                            int id = int.Parse(item["id"].ToString());
+                            // 筛选出查询区间内的 id
+                            if (id > submissionIdRangeRight || id < submissionIdRangeLeft) continue;
                             if (!submissionList.ContainsKey(idx))
                                 submissionList.Add(idx, new List<int>());
-                            submissionList[idx].Add(int.Parse(item["id"].ToString()));
+                            submissionList[idx].Add(id);
                         }
                     }
                 }
@@ -191,9 +203,10 @@ namespace CodeforcesEduHacking
                     {
                         try
                         {
-                            titleLabel.Content = "正在评测：" + subId.ToString();
+                            titleLabel.Content = "正在下载：" + subId.ToString();
                             var code = await codeforcesApi.GetCodeBySubmissionIdAsync(contestId, subId);
                             if (lang.IndexOf(code["language"]) == -1) continue;
+                            titleLabel.Content = "正在评测：" + subId.ToString();
                             switch (code["language"])
                             {
                                 case "lang-cpp":

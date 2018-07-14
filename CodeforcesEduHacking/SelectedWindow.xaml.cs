@@ -227,6 +227,17 @@ namespace CodeforcesEduHacking
                 settings.Add("problems", problems);
                 settings.Add("contestId", contestId);
 
+                // 设置题目查询区间
+                var submissionIdRange = new KeyValuePair<int, int>(0, int.MaxValue);
+                if (!string.IsNullOrWhiteSpace(submissionIdLeftTextBox.Text) && !string.IsNullOrWhiteSpace(submissionIdRightTextBox.Text))
+                {
+                    int submissionIdRangeLeft = int.Parse(submissionIdLeftTextBox.Text);
+                    int submissionIdRangeRight = int.Parse(submissionIdRightTextBox.Text);
+                    // 比较大小，交换位置（保证左边小于等于右边）
+                    submissionIdRange = new KeyValuePair<int, int>(Math.Min(submissionIdRangeLeft, submissionIdRangeRight), Math.Max(submissionIdRangeLeft, submissionIdRangeRight));
+                }
+                settings.Add("submissionIdRange", submissionIdRange);
+
                 // 打开文本对话框选择已下载的文件 （Contest Status）
                 OpenFileDialog dlg = new OpenFileDialog();
                 dlg.Filter = "Json (Contest Status)|*.json";
@@ -293,6 +304,12 @@ namespace CodeforcesEduHacking
                     MessageBoxButton.OK,
                     MessageBoxImage.Error);
             }
+        }
+
+        private void submissionIdTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex re = new Regex("[^0-9.-]+");
+            e.Handled = re.IsMatch(e.Text);
         }
     }
 }

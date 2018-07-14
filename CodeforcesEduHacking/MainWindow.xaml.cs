@@ -85,7 +85,7 @@ namespace CodeforcesEduHacking
         {
             try
             {
-                string contestId = contestListComboBox.Text.Substring(0, 4).Trim();
+                string contestId = contestListComboBox.Text.Substring(0, contestListComboBox.Text.IndexOf(' '));
                 return int.Parse(contestId);
             }
             catch (Exception)

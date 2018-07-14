@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CodeforcesEduHacking"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="主窗口" Height="450" Width="800">
     <Grid Loaded="Grid_Loaded">
         <ComboBox x:Name="contestListComboBox" HorizontalAlignment="Center" Margin="0,150,0,0" VerticalAlignment="Top" SelectedIndex="0" FontSize="14" MinWidth="420"/>
         <Button x:Name="hackItButton" Content="Hack" Margin="0,242,200,0" VerticalAlignment="Top" Width="131" Height="46" Click="hackItButton_Click" IsEnabled="False" IsCancel="True" FontSize="16"/>
