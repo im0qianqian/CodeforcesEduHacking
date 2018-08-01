@@ -108,7 +108,8 @@ namespace CodeforcesEduHacking
                     foreach (var item in contestStatus["result"])
                     {
                         var idx = item["problem"]["index"].ToString().Trim();
-                        if (item["verdict"].ToString().Trim() == "OK" && problems.ContainsKey(idx))
+
+                        if (item["verdict"] != null && item["verdict"].ToString().Trim() == "OK" && problems.ContainsKey(idx))
                         {
                             // id 为选手提交题目的 submissionId
                             int id = int.Parse(item["id"].ToString());
