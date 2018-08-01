@@ -103,7 +103,7 @@ namespace CodeforcesEduHacking
         {
             try
             {
-                if (contestStatus["status"].ToString().Trim() == "OK")
+                if (contestStatus["status"] != null && contestStatus["status"].ToString().Trim() == "OK")
                 {
                     foreach (var item in contestStatus["result"])
                     {
