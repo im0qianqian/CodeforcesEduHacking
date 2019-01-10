@@ -157,7 +157,7 @@ namespace CodeforcesEduHacking
         private void FoundErrorInCode(string id, string handle, string inputData, string expectedData, string outputData, TimeSpan time)
         {
             // 在界面中显示该条记录
-            const string SUBMISSION_URL = "http://codeforces.com/contest/{0}/submission/{1}";
+            const string SUBMISSION_URL = "http://codeforces.com/contest/{0}/challenge/{1}";
             excuteListView.Items.Add(new Submission(id, handle, string.Format(SUBMISSION_URL, contestId, id), inputData, outputData, expectedData, time));
         }
 
