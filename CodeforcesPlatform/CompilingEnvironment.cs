@@ -112,7 +112,8 @@ namespace CodeforcesPlatform
             private void ProgramCompilation()
             {
                 process.StartInfo.FileName = "g++";
-                process.StartInfo.Arguments = string.Format("{0} -pipe -O2 -DONLINE_JUDGE -std=c++14 -m32 -o {0}.exe", filePath);
+                // {0} -pipe -O2 -DONLINE_JUDGE -std=c++14 -m32 -o {0}.exe
+                process.StartInfo.Arguments = string.Format("{0} -pipe -static -DONLINE_JUDGE -lm -s -x c++ -Wl,--stack=268435456 -O2 -std=c++14 -o {0}.exe", filePath);
                 process.Start();
                 process.WaitForExit();
                 //process.Close();
