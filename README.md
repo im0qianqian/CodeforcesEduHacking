@@ -20,7 +20,7 @@
 ## **相关**
 
 - **适用人群：** 想进入首页 Hack 榜的选手
-- **下载地址：** http://codeforces-edu-hacking.dreamwings.cn
+- **下载地址：** https://codeforces-edu-hacking.dreamwings.cn
 - **使用教程：** https://www.dreamwings.cn/codeforces-edu-hacking/5266.html
 
 
