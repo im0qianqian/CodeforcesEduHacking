@@ -29,7 +29,7 @@
 
 ## Preview
 
-![img](http://www.dreamwings.cn/wp-content/uploads/2018/05/20180515113534.png)
+![img](http://static.dreamwings.cn/wp-content/uploads/2018/05/20180515113534.png)
 
 
 
