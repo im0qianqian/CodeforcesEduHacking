@@ -1,7 +1,9 @@
 # Codeforces Edu & Div.3 Hacking
 
+[![build](https://img.shields.io/badge/build-passing-brightgreen.svg)](https://github.com/im0qianqian/CodeforcesEduHacking) [![release](https://img.shields.io/badge/release-v1.1.0.15-blue.svg)](https://codeforces-edu-hacking.dreamwings.cn/) [![platform](https://img.shields.io/badge/platform-win-9cf.svg)](https://codeforces-edu-hacking.dreamwings.cn/) [![license](https://img.shields.io/badge/license-MIT-brightgreen.svg)](https://raw.githubusercontent.com/im0qianqian/CodeforcesEduHacking/master/LICENSE)
 
-## **简介**
+
+## Introduction
 
 还在发愁打了那么多场比赛都没有进入首页么？
 
@@ -17,7 +19,7 @@
 
 
 
-## **相关**
+## Tutorial
 
 - **适用人群：** 想进入首页 Hack 榜的选手
 - **下载地址：** https://codeforces-edu-hacking.dreamwings.cn
@@ -25,13 +27,13 @@
 
 
 
-## **程序展示**
+## Preview
 
-![img](http://static.dreamwings.cn/wp-content/uploads/2018/05/20180515113534.png)
+![img](http://www.dreamwings.cn/wp-content/uploads/2018/05/20180515113534.png)
 
 
 
-## **功能实现**
+## TODO List
 
 - Hack
   - [x] 指定 contest id
@@ -48,4 +50,4 @@
     - [ ] Python 3.6
     - [ ] C#
 - Ranking
-  - [x] Hack 榜单（前十）
+  - [x] Hack 榜单前十查询
