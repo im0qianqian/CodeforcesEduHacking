@@ -48,25 +48,16 @@ namespace CodeforcesEduHacking
             }
         }
 
+
         private async void Grid_Loaded(object sender, RoutedEventArgs e)
         {
             try
             {
-#if DEBUG
-                currentVersionLabel.Content = "当前版本号：1.0.0.0";
-#else
-                currentVersionLabel.Content = "当前版本号：" + ApplicationDeployment.CurrentDeployment.CurrentVersion.ToString();
-#endif
+                // 检查当前应用程序是否是通过 ClickOnce 部署，若是，获取部署版本，若不是，获取程序内定版本
+                currentVersionLabel.Content = "当前版本号：" + (ApplicationDeployment.IsNetworkDeployed ? ApplicationDeployment.CurrentDeployment.CurrentVersion.ToString() : Application.ResourceAssembly.GetName().Version.ToString());
 
                 codeforcesApi = new CodeforcesAPI();
                 await LoadContestList();
-
-                ///
-                //for (int i = 444; i < 470; i++)
-                //{
-                //    contestListComboBox.Items.Add(" " + i.ToString() + " hahahahah");
-                //}
-                ///
 
                 titleLabel.Content = "请选择一个 Edu Round or Div. 3";
                 hackCountButton.IsEnabled = true;

@@ -13,7 +13,7 @@ namespace CodeforcesPlatform
     {
         public abstract class CompilingLanguage
         {
-            protected const string BASE_DIRECTORY = "./temp/";
+            protected string baseDirectory = AppDomain.CurrentDomain.BaseDirectory + "./temp/";
             protected Process process = null;               // 程序执行进程
             protected TimeSpan excuteTotalTime;             // 程序执行时间
             protected string sourceCodeText;                // 程序源代码
@@ -51,9 +51,9 @@ namespace CodeforcesPlatform
                 try
                 {
                     // 如果该文件夹不存在直接返回
-                    if (!Directory.Exists(BASE_DIRECTORY)) return;
+                    if (!Directory.Exists(baseDirectory)) return;
 
-                    DirectoryInfo dir = new DirectoryInfo(BASE_DIRECTORY);
+                    DirectoryInfo dir = new DirectoryInfo(baseDirectory);
                     // 返回目录中所有文件和子目录
                     FileSystemInfo[] fileinfo = dir.GetFileSystemInfos();
                     foreach (FileSystemInfo i in fileinfo)
@@ -84,9 +84,9 @@ namespace CodeforcesPlatform
             {
                 base.Initialization(sourceCodeText, inputText);
 
-                if (!Directory.Exists(BASE_DIRECTORY)) Directory.CreateDirectory(BASE_DIRECTORY);   // 检测是否含有 temp 文件夹
+                if (!Directory.Exists(baseDirectory)) Directory.CreateDirectory(baseDirectory);   // 检测是否含有 temp 文件夹
 
-                filePath = BASE_DIRECTORY + "cpp_" + GetNextFileId().ToString() + ".cpp";   // 将源代码写入文件
+                filePath = baseDirectory + "cpp_" + GetNextFileId().ToString() + ".cpp";   // 将源代码写入文件
                 var streamWriter = File.CreateText(filePath);
                 streamWriter.WriteLine(sourceCodeText);
                 streamWriter.Close();
